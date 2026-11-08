@@ -37,9 +37,9 @@ const callout = (text: string): SeedBlock => ({ _type: "callout", _key: key(), t
 const unsplash = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=2400&q=80`;
 
 export const seedCategories = [
-  { slug: "trading-insights", title: "Trading insights", description: "Perspectives on trading process, discipline and risk." },
-  { slug: "market-education", title: "Market education", description: "Plain-language explanations of how digital markets work." },
-  { slug: "connectivity", title: "Connectivity", description: "How community networks, Wi-Fi and internet infrastructure work." },
+  { slug: "artificial-intelligence", title: "Artificial Intelligence", description: "Practical, evidence-based writing on using AI well and safely." },
+  { slug: "digital-markets", title: "Digital Markets", description: "How digital markets work, with risk and evidence first." },
+  { slug: "connectivity", title: "Community Connectivity", description: "Community Wi-Fi, affordable access and how networks work." },
   { slug: "company-updates", title: "Company updates", description: "News about YoungAfrican as the company is established." },
 ];
 
@@ -67,7 +67,7 @@ export const seedInsights: SeedInsight[] = [
     title: "Risk before reward: how to think about a trade before you take it",
     excerpt:
       "Most losses in digital markets come from poor risk management rather than poor ideas. Here is a simple framework for sizing positions and defining when you are wrong.",
-    categorySlug: "trading-insights",
+    categorySlug: "digital-markets",
     authorSlug: "youngafrican-research",
     featured: true,
     cover: { url: unsplash("photo-1611974789855-9c2a0a7236a3"), alt: "Candlestick chart on a dark screen" },
@@ -104,7 +104,7 @@ export const seedInsights: SeedInsight[] = [
     title: "Reading candlestick charts: a plain-language introduction",
     excerpt:
       "Candlesticks compress a lot of information into a small shape. Learn what the body, wicks and colours tell you, and where their limits are.",
-    categorySlug: "market-education",
+    categorySlug: "digital-markets",
     authorSlug: "youngafrican-research",
     featured: false,
     cover: { url: unsplash("photo-1590283603385-17ffb3a7f29f"), alt: "Screen showing a cryptocurrency price chart" },
