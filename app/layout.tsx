@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: site.name,
-    locale: "en_UG",
+    locale: "en_GB",
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
   },
@@ -35,12 +35,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f5f1e8",
+  themeColor: "#2d3cff",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-UG" className={`${newsreader.variable} ${schibsted.variable} antialiased`}>
+    <html lang="en" className={`${newsreader.variable} ${schibsted.variable} antialiased`}>
       <body className="flex min-h-dvh flex-col">{children}</body>
     </html>
   );

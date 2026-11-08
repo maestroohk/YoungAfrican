@@ -1,112 +1,49 @@
 import Link from "next/link";
-import { legalNotice, site } from "@/content/site";
-import { ButtonLink, Logo } from "@/components/ui";
+import { legalNotice } from "@/content/site";
+import { Logo } from "@/components/Header";
 
-const groups = [
+const columns = [
+  { title: "Products", links: [["Wi-Fi hotspots", "/connectivity"], ["Markets Academy", "/academy"], ["Insights", "/insights"]] },
   {
-    title: "Community Wi-Fi",
+    title: "Get involved",
     links: [
-      { label: "How hotspots work", href: "/internet-solutions#how-it-works" },
-      { label: "Access options", href: "/internet-solutions#access" },
-      { label: "Host a hotspot", href: "/internet-solutions#host" },
+      ["Host a hotspot", "/contact?service=hotspot-hosting"],
+      ["Academy interest list", "/contact?service=crypto-education"],
+      ["Partner with us", "/contact?service=partnership"],
     ],
   },
-  {
-    title: "Markets",
-    links: [
-      { label: "Research and education", href: "/crypto-markets" },
-      { label: "Approach to risk", href: "/crypto-markets#risk" },
-      { label: "Insights", href: "/insights" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "About", href: "/about" },
-      { label: "Founder", href: "/about#founder" },
-      { label: "Contact", href: "/contact" },
-    ],
-  },
+  { title: "Company", links: [["About", "/about"], ["Contact", "/contact"], ["Privacy", "/privacy"]] },
 ];
 
-export async function Footer() {
-  "use cache";
-  const socials = site.social.filter((item) => item.href);
-  const contacts = [
-    site.contact.email && { label: site.contact.email, href: `mailto:${site.contact.email}` },
-    site.contact.phone && { label: site.contact.phone, href: `tel:${site.contact.phone.replace(/\s/g, "")}` },
-  ].filter((item): item is { label: string; href: string } => Boolean(item));
-
+export function Footer() {
   return (
-    <footer className="on-dark bg-ink text-ivory">
-      <div className="container-page">
-        <div className="grid gap-8 border-b border-white/12 py-12 sm:py-14 lg:grid-cols-12 lg:items-end">
-          <h2 className="font-serif text-[2rem] leading-[1.1] tracking-[-0.015em] text-balance sm:text-[2.6rem] lg:col-span-8">
-            Asking about a hotspot, hosting one, or our education work? We would like to hear from you.
-          </h2>
-          <div className="lg:col-span-4 lg:text-right">
-            <ButtonLink href="/contact" variant="light">
-              Send an enquiry
-            </ButtonLink>
-          </div>
-        </div>
-
-        <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-12">
-          <div className="sm:col-span-2 lg:col-span-4">
-            <Logo tone="light" />
-            <p className="mt-5 max-w-xs leading-relaxed text-mist">
-              Community Wi-Fi hotspots and market education, built in {site.location}.
+    <footer className="on-dark bg-night text-white">
+      <div className="container-page pt-14 pb-10">
+        <div className="grid grid-cols-2 gap-10 lg:grid-cols-12">
+          <div className="col-span-2 lg:col-span-6">
+            <Link href="/" aria-label="YoungAfrican home" className="inline-flex min-h-11 items-center">
+              <Logo inverse />
+            </Link>
+            <p className="mt-3 max-w-sm leading-relaxed text-white/65">
+              Community Wi-Fi, markets education and research. African-founded, being established in Uganda.
             </p>
-            {contacts.length > 0 ? (
-              <ul className="mt-5 space-y-1">
-                {contacts.map((item) => (
-                  <li key={item.href}>
-                    <a href={item.href} className="text-ivory underline decoration-white/30 underline-offset-4 hover:decoration-white">
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="mt-5 max-w-xs text-sm leading-relaxed text-mist">
-                Direct contact details will be listed here soon. Until then, the{" "}
-                <Link href="/contact" className="text-ivory underline underline-offset-4">
-                  enquiry form
-                </Link>{" "}
-                reaches us.
-              </p>
-            )}
           </div>
-
-          {groups.map((group, index) => (
-            <div key={group.title} className={`lg:col-span-2 ${index === 0 ? "lg:col-start-7" : ""}`}>
-              <h3 className="label text-mist">{group.title}</h3>
-              <ul className="mt-4 space-y-0.5">
-                {group.links.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href} className="inline-block py-1.5 text-ivory/85 transition-colors hover:text-white">
-                      {link.label}
+          {columns.map((column) => (
+            <nav key={column.title} aria-label={column.title} className="lg:col-span-2">
+              <p className="text-sm font-semibold">{column.title}</p>
+              <ul className="mt-3">
+                {column.links.map(([text, href]) => (
+                  <li key={text}>
+                    <Link href={href} className="inline-flex min-h-10 items-center text-sm text-white/65 hover:text-white">
+                      {text}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
           ))}
         </div>
-
-        <div className="flex flex-col gap-4 border-t border-white/12 py-8 text-sm text-mist lg:flex-row lg:items-start lg:justify-between">
-          <p className="max-w-2xl leading-relaxed">{legalNotice}</p>
-          <div className="flex shrink-0 flex-wrap gap-x-6 gap-y-2">
-            {socials.map((item) => (
-              <a key={item.label} href={item.href} rel="noopener noreferrer" target="_blank" className="hover:text-white">
-                {item.label}
-              </a>
-            ))}
-            <span>
-              © {new Date().getFullYear()} {site.name}
-            </span>
-          </div>
-        </div>
+        <p className="mt-14 border-t border-white/10 pt-6 text-xs leading-relaxed text-white/55">{legalNotice}</p>
       </div>
     </footer>
   );

@@ -12,9 +12,9 @@ export default async function SiteLayout({ children }: LayoutProps<"/">) {
     <>
       <Header />
       {isPreview && (
-        <div role="status" className="fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-3 rounded-[3px] bg-ink py-2 pr-2 pl-4 text-sm font-medium whitespace-nowrap text-ivory shadow-lg">
+        <div role="status" className="fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-3 rounded-full bg-ink py-2 pr-2 pl-4 text-sm font-medium whitespace-nowrap text-white shadow-lg">
           Previewing drafts
-          <a href="/api/draft-mode/disable" className="rounded-[2px] bg-ivory px-3 py-1.5 text-ink">
+          <a href="/api/draft-mode/disable" className="rounded-full bg-white px-3 py-1.5 text-ink">
             Exit preview
           </a>
         </div>

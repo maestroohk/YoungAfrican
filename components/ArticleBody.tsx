@@ -17,12 +17,12 @@ const components: PortableTextComponents = {
     ),
     h3: ({ children }) => <h3 className="mt-8 mb-2 font-sans text-[1.15rem] font-semibold text-ink">{children}</h3>,
     blockquote: ({ children }) => (
-      <blockquote className="my-8 border-l-2 border-copper pl-5 text-[1.35rem] leading-snug text-ink italic">{children}</blockquote>
+      <blockquote className="my-8 border-l-2 border-coral-deep pl-5 text-[1.35rem] leading-snug text-ink italic">{children}</blockquote>
     ),
   },
   list: {
-    bullet: ({ children }) => <ul className="my-5 list-disc space-y-2 pl-6 marker:text-copper">{children}</ul>,
-    number: ({ children }) => <ol className="my-5 list-decimal space-y-2 pl-6 marker:text-copper">{children}</ol>,
+    bullet: ({ children }) => <ul className="my-5 list-disc space-y-2 pl-6 marker:text-coral-deep">{children}</ul>,
+    number: ({ children }) => <ol className="my-5 list-decimal space-y-2 pl-6 marker:text-coral-deep">{children}</ol>,
   },
   listItem: {
     bullet: ({ children }) => <li className="pl-1">{children}</li>,
@@ -36,7 +36,7 @@ const components: PortableTextComponents = {
       return (
         <a
           href={href}
-          className="text-cobalt underline decoration-cobalt/35 underline-offset-[3px] hover:decoration-cobalt"
+          className="text-blue underline decoration-blue/35 underline-offset-[3px] hover:decoration-blue"
           {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
         >
           {children}
@@ -58,12 +58,12 @@ const components: PortableTextComponents = {
             sizes="(min-width: 768px) 42rem, 100vw"
             className="h-auto w-full rounded-[2px]"
           />
-          {value.caption && <figcaption className="mt-2.5 font-sans text-sm text-stone">{value.caption}</figcaption>}
+          {value.caption && <figcaption className="mt-2.5 font-sans text-sm text-muted">{value.caption}</figcaption>}
         </figure>
       );
     },
     callout: ({ value }: { value: { text: string } }) => (
-      <aside className="my-8 border-l-2 border-copper bg-linen px-5 py-4 font-sans text-base leading-relaxed text-charcoal">
+      <aside className="my-8 border-l-2 border-coral-deep bg-paper px-5 py-4 font-sans text-base leading-relaxed text-ink">
         {value.text}
       </aside>
     ),
@@ -72,7 +72,7 @@ const components: PortableTextComponents = {
 
 export function ArticleBody({ value }: { value: PortableTextBlock[] }) {
   return (
-    <div className="font-serif text-[1.2rem] leading-[1.7] text-charcoal [&>*:first-child]:mt-0">
+    <div className="font-serif text-[1.2rem] leading-[1.7] text-ink [&>*:first-child]:mt-0">
       <PortableText value={value} components={components} />
     </div>
   );

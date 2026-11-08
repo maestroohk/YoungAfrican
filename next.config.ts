@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "cdn.sanity.io" },
     ],
   },
+  async redirects() {
+    return [
+      { source: "/internet-solutions", destination: "/connectivity", permanent: true },
+      { source: "/crypto-markets", destination: "/academy", permanent: true },
+    ];
+  },
   turbopack: {
     rules: {
       "*.css": {

@@ -16,7 +16,7 @@ import {
 const fieldOrder: EnquiryField[] = ["name", "email", "phone", "organisation", "service", "message", "consent"];
 
 const inputClass =
-  "block w-full rounded-[3px] border bg-paper px-4 py-3 text-base text-ink transition-colors placeholder:text-stone/70 focus:border-cobalt focus:outline-none focus-visible:outline-none focus:ring-2 focus:ring-cobalt/20";
+  "block min-h-12 w-full rounded-2xl border bg-paper px-4 py-3 text-base text-ink transition-colors placeholder:text-muted/80 focus:border-blue focus:bg-white focus:outline-none focus-visible:outline-none focus:ring-4 focus:ring-blue/15";
 
 export function ContactForm({ initialService = "" }: { initialService?: string }) {
   const [values, setValues] = useState<EnquiryInput>({ ...emptyEnquiry, service: initialService });
@@ -69,21 +69,21 @@ export function ContactForm({ initialService = "" }: { initialService?: string }
 
   if (result.status === "sent" || result.status === "stored-locally") {
     return (
-      <div ref={statusRef} tabIndex={-1} role="status" className="border-t-2 border-ink bg-paper p-6 outline-none sm:p-10">
-        <CircleCheck aria-hidden className="size-9 text-cobalt" strokeWidth={1.5} />
+      <div ref={statusRef} tabIndex={-1} role="status" className="rounded-[2rem] bg-white p-6 outline-none sm:p-10">
+        <CircleCheck aria-hidden className="size-10 text-blue" strokeWidth={1.75} />
         {result.status === "sent" ? (
           <>
-            <h2 className="mt-5 font-serif text-3xl">Thank you, your enquiry has been sent.</h2>
-            <p className="mt-4 max-w-lg text-lg leading-relaxed text-stone">
+            <h2 className="mt-5 text-3xl font-semibold tracking-[-0.03em]">Thank you, your enquiry has been sent.</h2>
+            <p className="mt-4 max-w-lg text-lg leading-relaxed text-muted">
               We have received your message and will reply to the email address you provided.
             </p>
           </>
         ) : (
           <>
-            <h2 className="mt-5 font-serif text-3xl">Enquiry saved locally (development mode).</h2>
-            <p className="mt-4 max-w-lg text-lg leading-relaxed text-stone">
+            <h2 className="mt-5 text-3xl font-semibold tracking-[-0.03em]">Enquiry saved locally (development mode).</h2>
+            <p className="mt-4 max-w-lg text-lg leading-relaxed text-muted">
               Email delivery is not configured, so nobody has been notified. The enquiry was written to{" "}
-              <code className="bg-linen px-1.5 py-0.5 font-mono text-base text-ink">.enquiries/enquiries.ndjson</code>{" "}
+              <code className="bg-paper px-1.5 py-0.5 font-mono text-base text-ink">.enquiries/enquiries.ndjson</code>{" "}
               on the development machine.
             </p>
           </>
@@ -91,7 +91,7 @@ export function ContactForm({ initialService = "" }: { initialService?: string }
         <button
           type="button"
           onClick={() => setResult({ status: "idle" })}
-          className="mt-8 inline-flex min-h-12 items-center rounded-[3px] bg-ink px-5 font-medium text-ivory transition-colors hover:bg-cobalt"
+          className="mt-8 inline-flex min-h-12 items-center rounded-full bg-ink px-6 font-semibold text-white transition-colors hover:bg-blue"
         >
           Send another enquiry
         </button>
@@ -109,9 +109,9 @@ export function ContactForm({ initialService = "" }: { initialService?: string }
   const errorCount = Object.values(errors).filter(Boolean).length;
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} noValidate className="relative border-t-2 border-ink pt-8">
+    <form ref={formRef} onSubmit={onSubmit} noValidate className="relative rounded-[2rem] bg-white p-6 sm:p-10">
       {errorCount > 0 && !failure && (
-        <p role="alert" className="mb-6 flex items-start gap-3 rounded-[3px] border border-red-200 bg-red-50 p-4 text-red-800">
+        <p role="alert" className="mb-6 flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 p-4 text-red-800">
           <CircleAlert aria-hidden className="mt-0.5 size-5 shrink-0" />
           {errorCount === 1 ? "One field needs your attention." : `${errorCount} fields need your attention.`}
         </p>
@@ -225,11 +225,14 @@ export function ContactForm({ initialService = "" }: { initialService?: string }
             checked={values.consent}
             onChange={update("consent")}
             {...fieldA11y("consent", errors.consent)}
-            className="mt-0.5 size-5 shrink-0 cursor-pointer accent-cobalt"
+            className="mt-0.5 size-5 shrink-0 cursor-pointer accent-[var(--color-blue)]"
           />
-          <span className="text-stone">
-            I agree that {site.name} may use these details to respond to my enquiry. We will not share them or use them for
-            marketing without permission.
+          <span className="text-muted">
+            I agree that {site.name} may use these details to respond to my enquiry, as described in the{" "}
+            <a href="/privacy" className="underline underline-offset-4">
+              privacy notice
+            </a>
+            .
           </span>
         </label>
         {errors.consent && (
@@ -240,20 +243,20 @@ export function ContactForm({ initialService = "" }: { initialService?: string }
       </div>
 
       {failure && (
-        <div ref={statusRef} tabIndex={-1} role="alert" className="mt-6 flex items-start gap-3 rounded-[3px] border border-red-200 bg-red-50 p-4 text-red-800 outline-none">
+        <div ref={statusRef} tabIndex={-1} role="alert" className="mt-6 flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 p-4 text-red-800 outline-none">
           <CircleAlert aria-hidden className="mt-0.5 size-5 shrink-0" />
           <p>{failure}</p>
         </div>
       )}
 
       <div className="mt-8 flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-stone">
+        <p className="text-sm text-muted">
           <span aria-hidden>*</span> Required fields
         </p>
         <button
           type="submit"
           disabled={pending}
-          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-[3px] bg-cobalt px-6 font-medium text-white transition-colors hover:bg-cobalt-deep disabled:cursor-wait disabled:opacity-70"
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-blue px-6 font-semibold text-white transition-colors hover:bg-blue-deep disabled:cursor-wait disabled:opacity-70"
         >
           {pending ? (
             <>
@@ -280,7 +283,7 @@ function fieldA11y(field: EnquiryField, error?: string) {
 }
 
 function borderFor(error?: string) {
-  return error ? "border-red-600" : "border-rule hover:border-stone";
+  return error ? "border-red-600" : "border-line hover:border-muted";
 }
 
 function Field({
@@ -306,14 +309,14 @@ function Field({
         <label htmlFor={id} className="font-medium">
           {label}
           {required && (
-            <span aria-hidden className="text-stone">
+            <span aria-hidden className="text-muted">
               {" "}
               *
             </span>
           )}
           {required && <span className="sr-only"> (required)</span>}
         </label>
-        {hint && <span className="text-sm text-stone">{hint}</span>}
+        {hint && <span className="text-sm text-muted">{hint}</span>}
       </div>
       {children}
       {error && (

@@ -24,7 +24,7 @@ export function ShareLinks({ url, title }: { url: string; title: string }) {
 
   return (
     <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-sm">
-      <span className="label text-stone">Share</span>
+      <span className="font-semibold">Share</span>
       {links.map((link) => (
         <a
           key={link.label}

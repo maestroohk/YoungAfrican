@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { ArrowLeft } from "lucide-react";
 import { ArticleBody } from "@/components/ArticleBody";
-import { InsightMeta, StoryCard } from "@/components/InsightCard";
+import { InsightsGrid } from "@/components/InsightsGrid";
 import { ShareLinks } from "@/components/ShareLinks";
 import { site } from "@/content/site";
 import { getInsight, getInsights } from "@/lib/insights";
@@ -48,78 +48,69 @@ async function Article({ params }: { params: PageProps<"/insights/[slug]">["para
 
   const url = `${site.url}/insights/${insight.slug}`;
 
+  const published = insight.publishedAt
+    ? new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric" }).format(new Date(insight.publishedAt))
+    : null;
+
   return (
     <>
       <article>
-        <header className="container-page pt-8 sm:pt-12">
-          <Link href="/insights" className="inline-flex min-h-11 items-center gap-2 text-sm text-stone hover:text-ink">
-            <ArrowLeft aria-hidden className="size-4" />
-            All insights
-          </Link>
-          <div className="mt-6 grid gap-6 border-t-2 border-ink pt-6 lg:grid-cols-12 lg:gap-10">
-            <div className="lg:col-span-3">
-              {insight.category && <p className="label text-copper">{insight.category.title}</p>}
-              <div className="mt-3">
-                <InsightMeta insight={insight} />
-              </div>
-            </div>
-            <div className="lg:col-span-9">
-              <h1 className="max-w-4xl font-serif text-[2.3rem] leading-[1.08] tracking-[-0.02em] text-balance sm:text-[3.2rem]">
-                {insight.title}
-              </h1>
-              <p className="mt-5 max-w-2xl text-lg leading-relaxed text-stone sm:text-xl">{insight.excerpt}</p>
+        <header className="bg-white">
+          <div className="container-page pt-8 pb-12 sm:pt-12">
+            <Link href="/insights" className="inline-flex min-h-11 items-center gap-2 rounded-full text-sm font-semibold text-muted hover:text-ink">
+              <ArrowLeft aria-hidden className="size-4" />
+              All insights
+            </Link>
+            <div className="mt-6 max-w-4xl">
+              {insight.category && <p className="inline-flex rounded-full bg-blue/10 px-3 py-1 text-sm font-semibold text-blue">{insight.category.title}</p>}
+              <h1 className="mt-5 font-serif text-[2.4rem] leading-[1.06] tracking-[-0.02em] text-balance sm:text-[3.4rem]">{insight.title}</h1>
+              <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">{insight.excerpt}</p>
+              <p className="mt-6 flex flex-wrap gap-x-3 gap-y-1 text-sm text-muted">
+                {insight.author && <span className="font-semibold text-ink">{insight.author.name}</span>}
+                {published && <time dateTime={insight.publishedAt ?? undefined}>{published}</time>}
+                <span>{insight.readingTime} min read</span>
+              </p>
             </div>
           </div>
         </header>
 
         {insight.cover && (
-          <figure className="container-page mt-10">
-            <div className="relative aspect-[16/9] overflow-hidden rounded-[2px] bg-linen lg:aspect-[21/9]">
-              <Image src={insight.cover.src} alt={insight.cover.alt} fill priority sizes="(min-width: 1280px) 1200px, 100vw" className="object-cover" />
+          <figure className="container-page mt-8">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] bg-blue lg:aspect-[21/9]">
+              <Image src={insight.cover.src} alt={insight.cover.alt} fill priority sizes="(min-width: 1216px) 1152px, 100vw" className="object-cover" />
             </div>
-            <figcaption className="mt-2.5 text-sm text-stone">{insight.cover.alt}</figcaption>
           </figure>
         )}
 
-        <div className="container-page grid gap-10 py-10 sm:py-14 lg:grid-cols-12">
-          <aside className="order-last lg:order-none lg:col-span-3">
-            <div className="lg:sticky lg:top-24">
-              {insight.author && (
-                <div className="border-t border-rule pt-4">
-                  <p className="label text-stone">Written by</p>
-                  <p className="mt-2 font-semibold">{insight.author.name}</p>
-                  {insight.author.role && <p className="text-sm text-stone">{insight.author.role}</p>}
-                </div>
-              )}
-              <div className="mt-6 border-t border-rule pt-4">
-                <ShareLinks url={url} title={insight.title} />
-              </div>
-            </div>
-          </aside>
-          <div className="lg:col-span-7">
+        <div className="container-page grid gap-10 py-12 sm:py-16 lg:grid-cols-12">
+          <div className="lg:col-span-8 lg:col-start-2">
             {!insight.publishedAt && (
-              <p role="note" className="mb-8 border-l-2 border-copper bg-paper px-4 py-3 text-sm text-stone">
+              <p role="note" className="mb-8 rounded-2xl bg-mango/30 px-4 py-3 text-sm">
                 This article is not published. You are seeing it in a preview.
               </p>
             )}
             <ArticleBody value={insight.body} />
+            <div className="mt-12 flex flex-wrap items-center justify-between gap-6 border-t border-line pt-6">
+              {insight.author && (
+                <p>
+                  <span className="block font-semibold">{insight.author.name}</span>
+                  {insight.author.role && <span className="text-sm text-muted">{insight.author.role}</span>}
+                </p>
+              )}
+              <ShareLinks url={url} title={insight.title} />
+            </div>
+            <p className="mt-8 rounded-2xl bg-white p-4 text-sm text-muted">Educational content only. Nothing here is financial advice.</p>
           </div>
         </div>
       </article>
 
       {insight.related.length > 0 && (
-        <section className="border-t border-rule bg-paper py-12 sm:py-16" aria-labelledby="related-heading">
+        <section className="bg-white py-16 sm:py-20" aria-labelledby="related-heading">
           <div className="container-page">
-            <h2 id="related-heading" className="font-serif text-[1.9rem] leading-tight">
+            <h2 id="related-heading" className="mb-8 text-3xl font-semibold tracking-[-0.03em]">
               Related reading
             </h2>
-            <ul className="mt-8 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-              {insight.related.map((item) => (
-                <li key={item.id}>
-                  <StoryCard insight={item} />
-                </li>
-              ))}
-            </ul>
+            <InsightsGrid insights={insight.related} filter={false} />
           </div>
         </section>
       )}
@@ -129,11 +120,11 @@ async function Article({ params }: { params: PageProps<"/insights/[slug]">["para
 
 function ArticleSkeleton() {
   return (
-    <div className="container-page pt-12 pb-20" aria-hidden>
-      <div className="h-3 w-24 bg-linen" />
-      <div className="mt-8 h-12 w-3/4 bg-linen" />
-      <div className="mt-4 h-12 w-1/2 bg-linen" />
-      <div className="mt-10 aspect-[21/9] bg-linen" />
+    <div className="container-page animate-pulse pt-12 pb-20" aria-hidden>
+      <div className="h-4 w-24 rounded-full bg-white" />
+      <div className="mt-8 h-12 w-3/4 rounded-2xl bg-white" />
+      <div className="mt-4 h-12 w-1/2 rounded-2xl bg-white" />
+      <div className="mt-10 aspect-[21/9] rounded-[2rem] bg-white" />
     </div>
   );
 }

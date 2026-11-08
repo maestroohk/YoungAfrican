@@ -1,66 +1,96 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Menu, X } from "lucide-react";
-import { nav, site } from "@/content/site";
-import { Logo } from "@/components/ui";
+import { Menu, X } from "lucide-react";
+import { nav } from "@/content/site";
+
+export function Mark({ className = "size-7", inverse = false }: { className?: string; inverse?: boolean }) {
+  return (
+    <svg viewBox="0 0 32 32" className={className} aria-hidden>
+      <rect width="32" height="32" rx="9" fill={inverse ? "#fff" : "var(--color-blue)"} />
+      <circle cx="10" cy="22" r="2.6" fill={inverse ? "var(--color-blue)" : "#fff"} />
+      <path d="M10 14.5a7.5 7.5 0 0 1 7.5 7.5" fill="none" stroke={inverse ? "var(--color-blue)" : "#fff"} strokeWidth="2.6" strokeLinecap="round" />
+      <path d="M10 7.5A14.5 14.5 0 0 1 24.5 22" fill="none" stroke="var(--color-mango)" strokeWidth="2.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function Logo({ inverse = false }: { inverse?: boolean }) {
+  return (
+    <span className="inline-flex items-center gap-2.5 text-[1.08rem] font-semibold tracking-[-0.02em]">
+      <Mark inverse={inverse} />
+      YoungAfrican
+    </span>
+  );
+}
+
+const tones: Record<string, string> = {
+  "/": "on-dark border-white/15 bg-blue text-white",
+  "/contact": "on-dark border-white/15 bg-blue text-white",
+  "/connectivity": "on-dark border-white/10 bg-night text-white",
+  "/academy": "border-mango-ink/10 bg-mango text-mango-ink",
+};
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const menuButton = useRef<HTMLButtonElement>(null);
-  const firstLink = useRef<HTMLAnchorElement>(null);
+  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      if (Math.abs(y - last) < 8) return;
+      setHidden(y > last && y > 400);
+      last = y;
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
-    document.body.style.overflow = "hidden";
-    firstLink.current?.focus();
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setOpen(false);
-        menuButton.current?.focus();
-      }
-    };
-    const onResize = () => {
-      if (window.innerWidth >= 1024) setOpen(false);
+      if (event.key !== "Escape") return;
+      setOpen(false);
+      document.getElementById("menu-button")?.focus();
     };
     window.addEventListener("keydown", onKey);
-    window.addEventListener("resize", onResize);
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKey);
-      window.removeEventListener("resize", onResize);
-    };
+    return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  const tone = tones[pathname];
+  const light = scrolled || open || !tone;
+  const onColour = !light && tone !== tones["/academy"];
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-rule bg-ivory/95 backdrop-blur-sm">
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:bg-cobalt focus:px-4 focus:py-2 focus:text-white"
-      >
+    <header
+      className={`sticky top-0 z-40 border-b transition-[transform,background-color,color,border-color] duration-300 ${light ? "border-line bg-white text-ink" : tone} ${
+        hidden && !open ? "-translate-y-full" : ""
+      }`}
+    >
+      <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-white">
         Skip to content
       </a>
       <div className="container-page flex h-16 items-center justify-between gap-6">
-        <Link href="/" aria-label={`${site.name} home`} onClick={() => setOpen(false)}>
-          <Logo />
+        <Link href="/" aria-label="YoungAfrican home" className="flex min-h-11 items-center">
+          <Logo inverse={onColour} />
         </Link>
-
         <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-8">
+          <ul className="flex gap-1 text-[0.95rem]">
             {nav.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
-                  className={`relative inline-flex h-16 items-center text-[0.95rem] transition-colors ${
-                    isActive(item.href)
-                      ? "text-ink after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-copper"
-                      : "text-stone hover:text-ink"
+                  className={`inline-flex min-h-10 items-center rounded-full px-4 transition-colors aria-[current=page]:font-semibold ${
+                    light ? "hover:bg-paper aria-[current=page]:bg-paper" : "hover:bg-current/10 aria-[current=page]:bg-current/10"
                   }`}
                 >
                   {item.label}
@@ -69,53 +99,45 @@ export function Header() {
             ))}
           </ul>
         </nav>
-
         <div className="flex items-center gap-2">
           <Link
             href="/contact"
-            aria-current={isActive("/contact") ? "page" : undefined}
-            className="hidden min-h-10 items-center rounded-[3px] bg-ink px-4 text-sm font-medium text-ivory transition-colors hover:bg-cobalt sm:inline-flex"
+            className={`hidden min-h-10 items-center rounded-full px-5 text-sm font-semibold transition-colors sm:inline-flex ${
+              light ? "bg-ink text-white hover:bg-blue" : onColour ? "bg-white text-blue-deep hover:bg-mango hover:text-mango-ink" : "bg-mango-ink text-white hover:bg-ink"
+            }`}
           >
-            Contact us
+            Get in touch
           </Link>
           <button
-            ref={menuButton}
+            id="menu-button"
             type="button"
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            aria-label={open ? "Close menu" : "Open menu"}
-            className="inline-flex size-11 items-center justify-center rounded-[3px] border border-rule transition-colors hover:border-ink lg:hidden"
+            className={`inline-flex size-11 items-center justify-center rounded-full border lg:hidden ${light ? "border-line" : "border-current/30"}`}
           >
             {open ? <X aria-hidden className="size-5" /> : <Menu aria-hidden className="size-5" />}
+            <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
           </button>
         </div>
       </div>
-
       {open && (
-        <div id="mobile-menu" className="h-[calc(100dvh-4rem)] overflow-y-auto border-t border-rule bg-ivory lg:hidden">
-          <nav aria-label="Mobile" className="container-page flex min-h-full flex-col justify-between pt-4 pb-10">
-            <ul className="divide-y divide-rule border-b border-rule">
-              {[{ label: "Home", href: "/" }, ...nav, { label: "Contact", href: "/contact" }].map((item, index) => (
-                <li key={item.href}>
-                  <Link
-                    ref={index === 0 ? firstLink : undefined}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    aria-current={pathname === item.href ? "page" : undefined}
-                    className="flex items-center justify-between py-4 font-serif text-[1.75rem] leading-tight"
-                  >
-                    {item.label}
-                    <ArrowRight aria-hidden className={`size-5 ${pathname === item.href ? "text-copper" : "text-stone/50"}`} />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-8 text-sm text-stone">
-              {site.name} · {site.status} · {site.location}
-            </p>
-          </nav>
-        </div>
+        <nav id="mobile-menu" aria-label="Main" className="border-t border-line lg:hidden">
+          <ul className="container-page py-3">
+            {[...nav, { label: "Get in touch", href: "/contact" }].map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  onClick={() => setOpen(false)}
+                  className="flex min-h-14 items-center border-b border-line text-xl font-semibold tracking-[-0.02em] aria-[current=page]:text-blue"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       )}
     </header>
   );

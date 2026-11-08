@@ -1,9 +1,9 @@
 export const site = {
   name: "YoungAfrican",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  tagline: "Community Wi-Fi and market education from Uganda",
+  tagline: "Community Wi-Fi and markets education",
   description:
-    "YoungAfrican is a Ugandan technology company in formation, building affordable community Wi-Fi hotspots and offering honest market research and financial education.",
+    "YoungAfrican is an African-founded company in formation, building pay-as-you-go community Wi-Fi in Uganda and an online Markets Academy that teaches risk before reward.",
   location: "Uganda",
   status: "Company in formation",
   contact: {
@@ -19,18 +19,52 @@ export const site = {
 };
 
 export const nav = [
-  { label: "Community Wi-Fi", href: "/internet-solutions" },
-  { label: "Markets", href: "/crypto-markets" },
+  { label: "Wi-Fi", href: "/connectivity" },
+  { label: "Markets Academy", href: "/academy" },
   { label: "Insights", href: "/insights" },
   { label: "About", href: "/about" },
 ];
 
+export const pathways = [
+  {
+    name: "Foundations",
+    level: "For beginners",
+    modules: [
+      { title: "How markets work", text: "Exchanges, orders, prices and who is on the other side of a trade." },
+      { title: "Reading a price chart", text: "Candles, timeframes, trend, and what a chart cannot tell you.", preview: "chart" },
+      { title: "Risk and position sizing", text: "Deciding the loss first, then the size.", preview: "risk" },
+      { title: "Writing a trading plan", text: "Entry, invalidation, target and review, written down in advance." },
+      { title: "Fundamentals, plainly", text: "What moves prices: earnings, interest rates, news and supply." },
+      { title: "Scams and red flags", text: "Guaranteed returns, signal groups and fake platforms." },
+    ],
+  },
+  {
+    name: "Practitioner",
+    level: "For experienced learners",
+    modules: [
+      { title: "Market structure", text: "Multiple timeframes, ranges and breakouts." },
+      { title: "Volatility and stops", text: "Placing stops where the idea fails, not where it hurts." },
+      { title: "Portfolio risk", text: "Correlation, total exposure and drawdown limits." },
+      { title: "Research methods", text: "Reading reports and economic data critically." },
+      { title: "Testing a strategy", text: "Back-testing, journaling and the limits of both." },
+      { title: "Trading psychology", text: "Process over outcome, and knowing when to stop." },
+    ],
+  },
+];
+
+export const usageGap = {
+  figure: 65,
+  text: "lived within mobile broadband coverage but were not using mobile internet at the end of 2024.",
+  source: "GSMA, The State of Mobile Internet Connectivity 2025",
+  href: "https://www.gsma.com/somic/wp-content/uploads/2025/09/The-State-of-Mobile-Internet-Connectivity-2025-Trends-in-Mobile-Internet-Connectivity.pdf",
+};
+
 export const legalNotice =
-  "YoungAfrican is being established in Uganda. Services that need registration or a licence will only be offered once it is in place. Nothing on this site is financial advice.";
+  "YoungAfrican is a company in formation, being established in Uganda. Services that need registration or a licence will only be offered once it is in place. Nothing on this site is financial advice. Photographs are illustrative; the people shown are not customers or staff.";
 
 export const about = {
   intro:
-    "We are a small Ugandan company in formation working on two things that widen opportunity: affordable Wi-Fi where people gather, and honest education about how financial markets work.",
+    "We are a small African-founded company in formation, being established in Uganda. We work on two things that widen opportunity: affordable Wi-Fi where people gather, and honest education about how financial markets work, online for learners anywhere.",
   mission: "Make internet access more affordable, and market knowledge more honest, for the communities that need both.",
   vision: "A Uganda where the place you live does not decide how much you can learn, build or take part in.",
   pillars: [
@@ -64,11 +98,6 @@ export const founder = {
     { label: "Education", text: "Responsible financial education" },
     { label: "Connectivity", text: "Affordable internet for underserved communities" },
   ],
-  portrait: {
-    src: "https://images.unsplash.com/photo-1605980776566-0486c3ac7617?auto=format&fit=crop&w=1400&q=80",
-    alt: "Illustrative portrait of a man in a dark turtleneck against a grey background",
-    illustrative: true,
-  },
 };
 
 export const values = [
