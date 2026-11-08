@@ -40,7 +40,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${newsreader.variable} ${schibsted.variable} antialiased`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${newsreader.variable} ${schibsted.variable} antialiased`}>
       <body className="flex min-h-dvh flex-col">{children}</body>
     </html>
   );

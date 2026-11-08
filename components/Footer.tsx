@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { footerNav, legalNotice, site } from "@/content/site";
 import { Logo } from "@/components/Header";
 
@@ -17,6 +17,14 @@ export function Footer() {
               <Mail aria-hidden className="size-4" />
               {site.contact.email}
             </a>
+            <p className="flex flex-wrap items-center gap-x-4 text-white/75">
+              <Phone aria-hidden className="size-4" />
+              {site.contact.phones.map((phone) => (
+                <a key={phone.tel} href={`tel:${phone.tel}`} className="inline-flex min-h-11 items-center hover:text-white">
+                  {phone.label}
+                </a>
+              ))}
+            </p>
           </div>
           {footerNav.map((column) => (
             <nav key={column.title} aria-label={column.title} className="lg:col-span-2">

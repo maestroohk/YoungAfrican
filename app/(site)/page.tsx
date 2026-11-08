@@ -13,8 +13,8 @@ import { getInsights } from "@/lib/insights";
 const reasonIcons = [Wallet, Signal, Gift, Headphones, Info];
 const productStyles = [
   { colour: "bg-blue text-white", icon: Package, href: "/packages", action: "View packages" },
-  { colour: "on-dark bg-night text-white", icon: Signal, href: "/how-it-works", action: "How it works" },
-  { colour: "bg-mango text-mango-ink", icon: Gift, href: "/rewards", action: "About rewards" },
+  { colour: "on-dark bg-night text-white", icon: Signal, href: "/how-it-works", action: "How to connect" },
+  { colour: "bg-mango text-mango-ink", icon: Gift, href: "/rewards", action: "See the gift cards" },
 ];
 
 const contactTopics = [
@@ -140,7 +140,7 @@ export default function HomePage() {
             How to get connected
           </Eyebrow>
           <h2 id="connect-title" className={`${heading} mt-5 max-w-3xl`}>
-            Five steps, <span className="text-blue-soft">no contract.</span>
+            Online in minutes, <span className="text-blue-soft">no contract.</span>
           </h2>
           <ol className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {connectSteps.map((step, index) => (
@@ -151,10 +151,14 @@ export default function HomePage() {
               </li>
             ))}
           </ol>
-          <div className="mt-10">
+          <ButtonLink href="/how-it-works#connect" tone="mango" className="mt-8">
+            Open the step-by-step guide
+          </ButtonLink>
+          <h3 className="mt-16 text-2xl font-semibold tracking-[-0.03em] sm:text-3xl">Try a practice run</h3>
+          <p className="mt-2 max-w-2xl text-white/70">A simplified demonstration of the sign-in page. It does not connect to a network or take payment.</p>
+          <div className="mt-8">
             <Walkthrough photo={photos.accessPoint} />
           </div>
-          <p className="mt-4 text-sm text-white/60">An interactive demonstration of how hotspot access is planned to work. It does not connect to a network or take payment.</p>
         </div>
       </section>
 

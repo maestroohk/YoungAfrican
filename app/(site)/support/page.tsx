@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LifeBuoy, Mail, RefreshCw, Wifi, Zap } from "lucide-react";
+import { LifeBuoy, Mail, Phone, RefreshCw, Ticket, Wallet, Wifi, Zap } from "lucide-react";
 import { ButtonLink, PageHero, heading } from "@/components/ui";
 import { site, statusNotice, supportFaqs } from "@/content/site";
 
@@ -11,8 +11,10 @@ export const metadata: Metadata = {
 
 const checks = [
   { icon: Wifi, title: "Wi-Fi is on", text: "Turn Wi-Fi off and on again on your phone." },
-  { icon: RefreshCw, title: "Right network", text: "Reconnect to the Young African Wi-Fi network, not a similar name." },
-  { icon: Zap, title: "Package active", text: "Check that your time or data has not run out." },
+  { icon: RefreshCw, title: "Right network", text: "Reconnect to youngafrican. If you see similar names, ask the attendant which one to use." },
+  { icon: Zap, title: "Package active", text: "Check that your time has not run out." },
+  { icon: Ticket, title: "Voucher code", text: "Type the code exactly, or tap Already bought? Find My Voucher on the sign-in page." },
+  { icon: Wallet, title: "Payment", text: "Follow the Mobile Money instructions on your phone and check you have enough balance." },
 ];
 
 export default function SupportPage() {
@@ -33,7 +35,11 @@ export default function SupportPage() {
         }
         intro="Answers to common questions, quick checks when the internet stops working, and how to reach our team."
       >
-        <ButtonLink href="/contact?service=support" tone="white">
+        <a href={`tel:${site.contact.phones[0].tel}`} className="inline-flex min-h-12 items-center gap-2 rounded-full bg-white px-5 font-semibold text-blue-deep hover:bg-mango hover:text-mango-ink sm:px-6">
+          <Phone aria-hidden className="size-4" />
+          Call {site.contact.phones[0].label}
+        </a>
+        <ButtonLink href="/contact?service=support" tone="outline" arrow={false}>
           Request support
         </ButtonLink>
         <a href={`mailto:${site.contact.email}`} className="inline-flex min-h-12 items-center gap-2 rounded-full px-5 font-semibold ring-2 ring-white/25 hover:ring-white">
@@ -56,7 +62,7 @@ export default function SupportPage() {
           <h2 id="checks-title" className={heading}>
             Internet stopped working?
           </h2>
-          <ol className="mt-10 grid gap-4 md:grid-cols-3">
+          <ol className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
             {checks.map((check, index) => (
               <li key={check.title} className="rounded-[2rem] bg-white p-6">
                 <span className="flex size-11 items-center justify-center rounded-full bg-blue text-white">
@@ -68,7 +74,18 @@ export default function SupportPage() {
               </li>
             ))}
           </ol>
-          <p className="mt-6 text-lg">Still not working? Contact support with your location and a short description of the problem.</p>
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 rounded-[2rem] bg-white p-6">
+            <p className="text-lg font-semibold">Still not working? Call support:</p>
+            {site.contact.phones.map((phone) => (
+              <a key={phone.tel} href={`tel:${phone.tel}`} className="inline-flex min-h-11 items-center gap-2 text-lg font-semibold text-blue underline-offset-4 hover:underline">
+                <Phone aria-hidden className="size-4" />
+                {phone.label}
+              </a>
+            ))}
+            <ButtonLink href="/how-it-works#connect" tone="ink" className="lg:ml-auto">
+              Step-by-step guide
+            </ButtonLink>
+          </div>
         </div>
       </section>
 

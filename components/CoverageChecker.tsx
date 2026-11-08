@@ -8,7 +8,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { ArrowRight, ChevronDown, LoaderCircle, LocateFixed, MapPin, RotateCcw, Search, X } from "lucide-react";
 import { areaPlaces, coverageAt, distanceKm, type Coverage, type LngLat, type Place } from "@/lib/coverage";
 import { plannedRegion } from "@/content/coverage";
-import { ugx } from "@/content/site";
+import { allPackages, ugx } from "@/content/site";
 
 type Selection = { place: Place; coverage: Coverage; resolving?: boolean };
 type Suggestion = Place & { id: string; known?: boolean };
@@ -530,14 +530,10 @@ function Result({ selection }: { selection: Selection | null }) {
       {coverage.status === "live" ? (
         <>
           <ul className="mt-4 grid grid-cols-3 gap-2 text-center text-sm">
-            {[
-              ["3 hours", 500],
-              ["24 hours", 1000],
-              ["30 days", 25000],
-            ].map(([name, price]) => (
-              <li key={name} className="rounded-2xl bg-paper px-2 py-2.5">
-                <span className="block text-xs text-muted">{name}</span>
-                <span className="font-semibold tabular-nums">{ugx(Number(price))}</span>
+            {[allPackages[0], allPackages[2], allPackages[4]].map((item) => (
+              <li key={item.name} className="rounded-2xl bg-paper px-2 py-2.5">
+                <span className="block text-xs text-muted">{item.duration}</span>
+                <span className="font-semibold">{ugx(item.price)}</span>
               </li>
             ))}
           </ul>

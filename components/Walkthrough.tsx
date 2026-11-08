@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check, ChevronRight, Clock, Globe, Lock, RotateCcw, Router, ShieldCheck, Smartphone, Wifi } from "lucide-react";
+import { allPackages, ugx } from "@/content/site";
 
 const audiences = [
   { id: "people", label: "Get online" },
@@ -17,22 +18,22 @@ type Photo = { src: string; alt: string };
 const steps = [
   {
     title: "Find the network",
-    phone: "Open Wi-Fi settings and choose the Young African Wi-Fi network.",
+    phone: "Open Wi-Fi settings and choose the youngafrican network.",
     behind: "An access point at the host's premises broadcasts an open network that anyone nearby can join.",
   },
   {
-    title: "Join the hotspot",
-    phone: "A welcome page opens by itself. Joining is free.",
-    behind: "Your phone is connected to the hotspot, but internet traffic is held at the welcome page until access is confirmed.",
+    title: "Open the sign-in page",
+    phone: "The youngafrican sign-in page opens by itself. Joining the network is free.",
+    behind: "Your phone is connected to the hotspot, but internet traffic is held at the sign-in page until access is confirmed.",
   },
   {
-    title: "Choose access",
+    title: "Choose a package",
     phone: "Pick how long you need: 3 hours for UGX 500, 12 hours for UGX 800 or 24 hours for UGX 1,000.",
-    behind: "Every package is time-based, so you always know when it ends. Longer packages run for a weekend, 7 days or 30 days.",
+    behind: "Every package is time-based, so you always know when it ends. Longer packages run for 7 days or 4 weeks.",
   },
   {
     title: "Enter a voucher",
-    phone: "Type the code printed on a voucher bought from a local agent.",
+    phone: "Type your voucher code and tap Login. On the real sign-in page you can also pay with MTN MoMo or Airtel Money.",
     behind: "The hotspot asks the voucher system to check the code, then opens a session linked to it.",
   },
   {
@@ -50,7 +51,7 @@ const statusFor = (step: number) => [
 ];
 
 const networks = [
-  { name: "Young African Wi-Fi", open: true, bars: 4 },
+  { name: "youngafrican", open: true, bars: 4 },
   { name: "Shop_Guest", open: false, bars: 3 },
   { name: "Home-5G", open: false, bars: 2 },
 ];
@@ -105,11 +106,7 @@ function Status({ step, expired }: { step: number; expired: boolean }) {
   );
 }
 
-const passes = [
-  { name: "3 hours", hours: 3, price: "UGX 500" },
-  { name: "12 hours", hours: 12, price: "UGX 800" },
-  { name: "24 hours", hours: 24, price: "UGX 1,000" },
-];
+const passes = allPackages.slice(0, 3).map((item) => ({ name: item.duration, hours: parseInt(item.duration), price: ugx(item.price) }));
 
 function PeopleDemo() {
   const [step, setStep] = useState(0);
@@ -194,7 +191,7 @@ function PeopleDemo() {
                       </li>
                     ))}
                   </ul>
-                  <p className="mt-auto text-sm text-muted">Tap the open Young African Wi-Fi network.</p>
+                  <p className="mt-auto text-sm text-muted">Tap the youngafrican network.</p>
                 </>
               )}
 
@@ -203,7 +200,7 @@ function PeopleDemo() {
                   <span className="inline-flex size-11 items-center justify-center rounded-xl bg-blue text-white">
                     <Wifi aria-hidden className="size-5" />
                   </span>
-                  <p className="mt-5 text-xl leading-tight font-semibold">Welcome to Young African Wi-Fi</p>
+                  <p className="mt-5 text-xl leading-tight font-semibold">Sign in to youngafrican</p>
                   <p className="mt-2 text-sm leading-relaxed text-muted">You are connected to the hotspot. Choose how you would like to browse.</p>
                   <button type="button" onClick={() => setStep(2)} className={`mt-auto ${button}`}>
                     See access options
@@ -227,10 +224,10 @@ function PeopleDemo() {
                       >
                         <Clock aria-hidden className="size-5 shrink-0 text-blue" />
                         <span className="flex-1 font-semibold">{option.name}</span>
-                        <span className="text-sm font-semibold tabular-nums">{option.price}</span>
+                        <span className="text-sm font-semibold">{option.price}</span>
                       </button>
                     ))}
-                    <p className="text-xs text-muted">More packages, up to 30 days, on the packages page.</p>
+                    <p className="text-xs text-muted">More packages, up to 4 weeks, on the packages page.</p>
                   </div>
                   <button type="button" disabled={!plan} onClick={() => setStep(3)} className={`mt-auto ${button}`}>
                     Continue
@@ -273,7 +270,7 @@ function PeopleDemo() {
                   </span>
                   <p className="mt-5 text-2xl font-semibold">Session ended</p>
                   <p className="mt-1 text-sm text-muted">Your {plan?.name} package has run out.</p>
-                  <p className="mt-6 rounded-lg bg-paper p-4 text-sm leading-relaxed text-muted">Buy another voucher from a local agent to continue.</p>
+                  <p className="mt-6 rounded-lg bg-paper p-4 text-sm leading-relaxed text-muted">Buy another package on the sign-in page to continue.</p>
                   <button type="button" onClick={newVoucher} className={`mt-auto ${button}`}>
                     Enter a new voucher
                   </button>

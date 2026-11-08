@@ -8,20 +8,30 @@ export const site = {
   status: "Live in Kazo, Kampala",
   contact: {
     email: "younginvestorschoice8@gmail.com",
+    phones: [
+      { label: "0785 077 821", tel: "+256785077821" },
+      { label: "0751 582 202", tel: "+256751582202" },
+    ],
   },
+};
+
+export const hotspotAccess = {
+  network: "youngafrican",
+  portal: "wifi.login",
+  payments: ["MTN MoMo", "Airtel Money"],
 };
 
 export const nav = [
   { label: "Packages", href: "/packages" },
   { label: "Coverage", href: "/coverage" },
-  { label: "How it works", href: "/how-it-works" },
+  { label: "How to connect", href: "/how-it-works" },
   { label: "Rewards", href: "/rewards" },
   { label: "News", href: "/insights" },
   { label: "About", href: "/about" },
 ];
 
 export const footerNav = [
-  { title: "Internet", links: [["Packages", "/packages"], ["Coverage", "/coverage"], ["How it works", "/how-it-works"], ["Customer rewards", "/rewards"]] },
+  { title: "Internet", links: [["Packages", "/packages"], ["Coverage", "/coverage"], ["How to connect", "/how-it-works"], ["30-day gift cards", "/rewards"]] },
   { title: "Help", links: [["Support centre", "/support"], ["Partner with us", "/partners"], ["Contact us", "/contact"]] },
   { title: "Company", links: [["About us", "/about"], ["News and articles", "/insights"], ["Privacy", "/privacy"]] },
 ];
@@ -56,9 +66,9 @@ export const story = {
 
 export const promises = [
   { title: "Prices you can see", text: "Every package and price is published before you pay. No hidden charges, no contract." },
-  { title: "Pay only for what you need", text: "From UGX 500 for 3 hours to UGX 25,000 for 30 days, on your own phone." },
+  { title: "Pay only for what you need", text: "From UGX 500 for 3 hours to UGX 25,000 for 4 weeks, paid with Mobile Money on your own phone." },
   { title: "Honest about coverage", text: "We only list areas where service is live, and we tell you what is planned near you." },
-  { title: "Thanks for staying", text: "A gift-card programme is planned to reward customers who stay with us." },
+  { title: "Thanks for staying", text: "A 30-day gift card with a branded reward is coming for customers who visit daily." },
   { title: "People who answer", text: "Every message to our team is read and answered by a person." },
 ];
 
@@ -74,53 +84,55 @@ export const values = [
 export const products = [
   {
     title: "Cheap internet",
-    text: "From UGX 500 for 3 hours to UGX 25,000 for 30 days, with the price, duration and devices stated clearly for every package.",
+    text: "From UGX 500 for 3 hours to UGX 25,000 for 4 weeks, bought on the hotspot sign-in page with MTN MoMo or Airtel Money.",
   },
   {
     title: "Quality standard network",
     text: "A network built for dependable connectivity, with published coverage areas, support hours and notices about maintenance.",
   },
   {
-    title: "Gift cards for consistent clients",
-    text: "An appreciation programme planned to reward eligible loyal customers, with clear rules for who qualifies and how to redeem.",
+    title: "30-day gift cards",
+    text: "Visit the hotspot every day for 30 days and earn a branded bottle, plate and cup, or T-shirt and cap. Coming soon.",
   },
 ];
 
 export const packages = [
   {
-    group: "Short passes",
+    group: "Hours and days",
     items: [
-      { name: "3 hours", price: 500, devices: 1 },
-      { name: "12 hours", price: 800, devices: 1 },
-      { name: "24 hours", price: 1000, devices: 1, highlight: true },
+      { name: "Short", duration: "3 hours", price: 500, devices: 1 },
+      { name: "Half day", duration: "12 hours", price: 800, devices: 1 },
+      { name: "Daily", duration: "24 hours", price: 1000, devices: 1, highlight: true },
     ],
   },
   {
-    group: "Weekend and weekly",
+    group: "Weeks",
     items: [
-      { name: "Weekend", price: 3500, devices: 1 },
-      { name: "7 days", price: 5000, devices: 1 },
-    ],
-  },
-  {
-    group: "Monthly",
-    items: [
-      { name: "30 days", price: 25000, devices: 1 },
-      { name: "30 days, 3 devices", price: 45000, devices: 3 },
+      { name: "Weekly", duration: "7 days", price: 5000, devices: 1 },
+      { name: "Monthly", duration: "4 weeks", price: 25000, devices: 1 },
+      { name: "Family network", duration: "4 weeks", price: 45000, devices: 3 },
     ],
   },
 ];
 
+export const allPackages = packages.flatMap((group) => group.items);
+
 export const ugx = (amount: number) => `UGX ${amount.toLocaleString("en-US")}`;
 
-export const packageDetails = ["Price in Uganda shillings", "How long it lasts", "How many devices", "Where it works", "How to buy a voucher", "How to renew"];
+export const packageDetails = ["Price in Uganda shillings", "How long it lasts", "How many devices", "Where it works", "How to pay", "How to renew"];
+
+export const rewardCards = [
+  { amount: 500, reward: "Free bottle", image: "/rewards/bottle.webp", width: 240, height: 354, alt: "Black bottle with the YoungAfrican logo", tone: "blue" },
+  { amount: 800, reward: "Free plate and cup", image: "/rewards/plate-cup.webp", width: 384, height: 276, alt: "White plate and mug with the YoungAfrican logo", tone: "night" },
+  { amount: 1000, reward: "Free T-shirt and cap", image: "/rewards/shirt-cap.webp", width: 344, height: 346, alt: "Black T-shirt and cap with the YoungAfrican logo", tone: "mango" },
+] as const;
 
 export const connectSteps = [
-  { title: "Check coverage", text: "Make sure Young African Internet is available in your area." },
-  { title: "Choose a package", text: "Pick an available package and read its price and usage terms." },
-  { title: "Pay or get a voucher", text: "Follow the published payment or voucher instructions." },
-  { title: "Connect", text: "Join the Young African Wi-Fi network, or arrange an installation." },
-  { title: "Get help if needed", text: "Contact support if activation or the connection does not work." },
+  { title: "Join youngafrican", text: "Turn on Wi-Fi and tap the network called youngafrican." },
+  { title: "Open the sign-in page", text: "It opens by itself, or tap the Wi-Fi sign-in notification." },
+  { title: "Enter a voucher", text: "Already have a code? Type it in and tap Login." },
+  { title: "Or buy a package", text: "Tap BUY and pay with MTN MoMo or Airtel Money." },
+  { title: "Get help", text: "Call support on 0785 077 821 or 0751 582 202." },
 ];
 
 export const reasons = [
@@ -141,7 +153,7 @@ export const partnerTypes = [
 export const supportFaqs = [
   {
     q: "How do I connect?",
-    a: "Check coverage, choose an available package and follow the official voucher or payment instructions shown on this website.",
+    a: "Turn on Wi-Fi, join the network called youngafrican and wait for the sign-in page. Enter a voucher code and tap Login, or tap BUY next to a package and pay with MTN MoMo or Airtel Money. The step-by-step guide is on the How to connect page.",
   },
   {
     q: "Can I use my own phone?",
@@ -153,11 +165,11 @@ export const supportFaqs = [
   },
   {
     q: "Do you reward loyal customers?",
-    a: "We plan to recognise eligible consistent customers through a gift-card appreciation programme. The eligibility and redemption terms will be published on the rewards page before it starts.",
+    a: "A 30-day gift card is coming: visit the hotspot daily for 30 days and earn a branded reward. The full terms will be published on the rewards page before it starts.",
   },
   {
     q: "What if my internet stops working?",
-    a: "Check that Wi-Fi is on, reconnect to the correct network and confirm that your package is active. If it still does not work, contact support with your location and a short description of the problem.",
+    a: "Check that Wi-Fi is on, reconnect to the youngafrican network and confirm that your package is active. If it still does not work, call support on 0785 077 821 or 0751 582 202.",
   },
   {
     q: "Can my shop or institution host a hotspot?",
@@ -180,7 +192,7 @@ export const hotspot = {
   steps: [
     {
       title: "Find a hotspot",
-      text: "Look for the Young African Wi-Fi network at a hosting location such as a trading centre, campus or community space.",
+      text: "Look for the youngafrican network at a hosting location such as a trading centre, campus or community space.",
     },
     {
       title: "Get an access voucher",
@@ -202,13 +214,13 @@ export const hotspot = {
       bestFor: "A study session, a busy day or a quick top-up.",
     },
     {
-      name: "Weekend and weekly passes",
-      how: "A weekend for UGX 3,500 or 7 days for UGX 5,000.",
+      name: "Weekly pass",
+      how: "7 days of browsing for UGX 5,000.",
       bestFor: "Regular users who are online most days.",
     },
     {
       name: "Monthly plans",
-      how: "30 days for UGX 25,000, or UGX 45,000 for 3 devices at once.",
+      how: "4 weeks for UGX 25,000, or the Family network for UGX 45,000.",
       bestFor: "Daily users, families and small shops.",
     },
   ],
@@ -225,8 +237,8 @@ export const hotspot = {
       a: "No. Hotspot access is pay-as-you-go with vouchers. You only need a Wi-Fi enabled phone, tablet or laptop.",
     },
     {
-      q: "How will I pay for a voucher?",
-      a: "Vouchers are planned to be sold through local agents at hosting locations. Mobile money and online purchase are planned for later and are not available yet.",
+      q: "How do I pay?",
+      a: "On the youngafrican sign-in page, tap BUY next to a package and pay with MTN MoMo or Airtel Money. You need to be connected to the youngafrican Wi-Fi to see the sign-in page.",
     },
     {
       q: "What will it cost?",
