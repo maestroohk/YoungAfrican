@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
@@ -34,7 +34,18 @@ const tones: Record<string, string> = {
 };
 
 export function Header() {
-  const pathname = usePathname();
+  return (
+    <Suspense fallback={<HeaderBar pathname="" />}>
+      <CurrentHeader />
+    </Suspense>
+  );
+}
+
+function CurrentHeader() {
+  return <HeaderBar pathname={usePathname()} />;
+}
+
+function HeaderBar({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
