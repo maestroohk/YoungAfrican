@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Clock, Database, Users, Wifi } from "lucide-react";
+import { Clock, Database, Phone, Users, Wifi } from "lucide-react";
 import { ButtonLink, PageHero, heading } from "@/components/ui";
-import { Walkthrough } from "@/components/Walkthrough";
-import { connectSteps, hotspot, photos, site } from "@/content/site";
+import { ConnectGuide } from "@/components/ConnectGuide";
+import { hotspot, hotspotAccess, photos, site } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "How it works",
-  description: `How to get connected with ${site.name}: check coverage, choose a package, use a voucher and connect from your own phone.`,
+  title: "How to connect",
+  description: `How to connect to ${site.name}: join the ${hotspotAccess.network} Wi-Fi, enter a voucher or buy a package with MTN MoMo or Airtel Money, and get help.`,
   alternates: { canonical: "/how-it-works" },
 };
 
@@ -21,15 +21,15 @@ export default function HowItWorksPage() {
         eyebrow={
           <>
             <Wifi aria-hidden className="size-4" />
-            How it works
+            How to connect
           </>
         }
         title={
           <>
-            Get online <span className="text-blue-soft">in five simple steps.</span>
+            Get online <span className="text-blue-soft">in a few taps.</span>
           </>
         }
-        intro="Shared Wi-Fi brings one good connection to everyone nearby. Buy a voucher, connect from your own phone and browse, with no contract and no router at home."
+        intro={`Join the ${hotspotAccess.network} Wi-Fi, then enter a voucher or buy a package with ${hotspotAccess.payments.join(" or ")}. No contract and no router at home.`}
         aside={
           <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem]">
             <Image src={photos.studentsPhone.src} alt={photos.studentsPhone.alt} fill priority sizes="(min-width: 1024px) 480px, 100vw" className="object-cover" />
@@ -37,47 +37,44 @@ export default function HowItWorksPage() {
           </div>
         }
       >
-        <ButtonLink href="/coverage" tone="white">
-          Check coverage
+        <ButtonLink href="#connect" tone="white">
+          Start the guide
         </ButtonLink>
         <ButtonLink href="/packages" tone="outline" arrow={false}>
           View packages
         </ButtonLink>
       </PageHero>
 
-      <section aria-labelledby="steps-title" className="on-dark bg-night text-white">
-        <div className="container-page pb-20 lg:pb-28">
-          <h2 id="steps-title" className="sr-only">
-            Steps to get connected
-          </h2>
-          <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-            {connectSteps.map((step, index) => (
-              <li key={step.title} className="rounded-3xl bg-white/6 p-5 ring-1 ring-white/10">
-                <span className="flex size-9 items-center justify-center rounded-full bg-mango text-sm font-bold text-mango-ink">{index + 1}</span>
-                <p className="mt-4 font-semibold">{step.title}</p>
-                <p className="mt-1 text-sm leading-relaxed text-white/70">{step.text}</p>
-              </li>
-            ))}
-          </ol>
-          <h2 className="mt-16 text-2xl font-semibold tracking-[-0.03em] sm:text-3xl">Try the planned experience</h2>
-          <p className="mt-2 max-w-2xl text-white/70">An interactive demonstration. It does not connect to a network or take payment.</p>
-          <div className="mt-8">
-            <Walkthrough photo={photos.accessPoint} />
+      <section id="connect" aria-labelledby="connect-title" className="scroll-mt-20">
+        <div className="container-page py-20 lg:py-28">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <p className="font-semibold text-blue">Step-by-step guide</p>
+              <h2 id="connect-title" className={`${heading} mt-4`}>
+                How to connect
+              </h2>
+            </div>
+            <p className="max-w-sm text-muted">
+              Choose your path and follow along on your phone. You need to be near a {hotspotAccess.network} hotspot to sign in or buy.
+            </p>
+          </div>
+          <div className="mt-10">
+            <ConnectGuide />
           </div>
         </div>
       </section>
 
-      <section aria-labelledby="options-title">
+      <section aria-labelledby="options-title" className="bg-white">
         <div className="container-page py-20 lg:py-28">
           <p className="font-semibold text-blue">Packages</p>
           <h2 id="options-title" className={`${heading} mt-4 max-w-3xl`}>
-            From 3 hours to 30 days. <span className="text-muted">Your choice.</span>
+            From 3 hours to 4 weeks. <span className="text-muted">Your choice.</span>
           </h2>
           <ul className="mt-12 grid gap-4 md:grid-cols-3">
             {hotspot.options.map((option, index) => {
               const Icon = optionIcons[index];
               return (
-                <li key={option.name} className="flex flex-col rounded-[2rem] bg-white p-6 sm:p-8">
+                <li key={option.name} className="flex flex-col rounded-[2rem] bg-paper p-6 sm:p-8">
                   <span className="flex size-12 items-center justify-center rounded-full bg-blue text-white">
                     <Icon aria-hidden className="size-5" />
                   </span>
@@ -91,14 +88,33 @@ export default function HowItWorksPage() {
               );
             })}
           </ul>
+          <ButtonLink href="/packages" tone="ink" className="mt-10">
+            All packages and prices
+          </ButtonLink>
         </div>
       </section>
 
-      <section aria-labelledby="faq-title" className="bg-white">
+      <section aria-labelledby="faq-title">
         <div className="container-page grid gap-10 py-20 lg:grid-cols-12 lg:py-28">
-          <h2 id="faq-title" className={`${heading} lg:col-span-4`}>
-            Questions
-          </h2>
+          <div className="lg:col-span-4">
+            <h2 id="faq-title" className={heading}>
+              Questions
+            </h2>
+            <div className="mt-8 rounded-[2rem] bg-blue p-6 text-white">
+              <p className="font-semibold">Stuck while connecting?</p>
+              <p className="mt-1 text-white/80">Call our support team.</p>
+              <ul className="mt-4 space-y-2">
+                {site.contact.phones.map((phone) => (
+                  <li key={phone.tel}>
+                    <a href={`tel:${phone.tel}`} className="inline-flex min-h-11 items-center gap-2 text-lg font-semibold underline-offset-4 hover:underline">
+                      <Phone aria-hidden className="size-4" />
+                      {phone.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
           <div className="lg:col-span-8">
             {hotspot.faqs.map((faq) => (
               <details key={faq.q} className="group border-b border-line">
