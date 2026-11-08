@@ -47,6 +47,7 @@ export const seedAuthors = [
   { slug: "youngafrican-research", name: "YoungAfrican Research", role: "Markets research and education team" },
   { slug: "youngafrican-networks", name: "YoungAfrican Networks", role: "Connectivity team" },
   { slug: "youngafrican-team", name: "YoungAfrican Team", role: "Company updates" },
+  { slug: "young-african-internet", name: "Young African Internet", role: "Connectivity and customer team" },
 ];
 
 export type SeedInsight = {
