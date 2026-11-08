@@ -29,7 +29,7 @@ export default function CoveragePage() {
         <div className="container-page">
           <CoverageChecker />
           <p className="mt-4 text-sm text-muted">
-            Coverage is shown at the area level. A marker is a confirmed or planned area, not a measured signal footprint, and the Wakiso line is the district
+            Coverage is shown at the area level. A marker is a confirmed or planned area, not a measured signal footprint, and the dashed line is the Wakiso and Entebbe
             boundary we plan to roll out across, not existing coverage.
           </p>
         </div>

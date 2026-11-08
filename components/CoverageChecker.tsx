@@ -101,7 +101,7 @@ function describe({ place, coverage }: Selection) {
       ? "Young African Internet is live in this area. Hotspot reach varies street by street, so ask us to confirm your exact spot."
       : coverage.status === "planned"
         ? coverage.area === plannedRegion.name
-          ? "This location is inside Wakiso District, which is on our rollout plan. No date or exact coverage has been confirmed yet."
+          ? "This location is inside Wakiso District or Entebbe, which are on our rollout plan. No date or exact coverage has been confirmed yet."
           : `${coverage.area} is next on our rollout plan. No date has been confirmed yet.`
         : "We have not confirmed coverage at this location.";
   return { title, message, label: [place.name, place.context].filter(Boolean).join(" · ") };
@@ -456,7 +456,7 @@ export function CoverageChecker() {
             </li>
             <li className="flex items-center gap-1.5">
               <span aria-hidden className="h-0 w-4 border-t-2 border-dashed border-[#c48a00]" />
-              Wakiso rollout boundary
+              Rollout boundary
             </li>
           </ul>
           {mapState === "ready" && (
