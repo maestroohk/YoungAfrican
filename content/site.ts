@@ -189,24 +189,6 @@ export const enquiryServices = [
 ] as const;
 
 export const hotspot = {
-  steps: [
-    {
-      title: "Find a hotspot",
-      text: "Look for the youngafrican network at a hosting location such as a trading centre, campus or community space.",
-    },
-    {
-      title: "Get an access voucher",
-      text: "Buy a voucher with a short access code for the amount of time or data you need. No contract, no installation at home.",
-    },
-    {
-      title: "Connect and log in",
-      text: "Join the network on your phone or laptop. A login page opens; enter your code to start browsing.",
-    },
-    {
-      title: "Browse until it runs out",
-      text: "Your session ends when your time or data is used. Buy another voucher whenever you need more.",
-    },
-  ],
   options: [
     {
       name: "Short passes",
@@ -224,7 +206,6 @@ export const hotspot = {
       bestFor: "Daily users, families and small shops.",
     },
   ],
-  places: ["Trading centres and markets", "Campuses and schools", "Transport stages", "Community centres", "Shops and cafés"],
   hostProvides: ["A suitable, secure location", "Access to reliable power", "A point of contact on site"],
   weProvide: ["Site survey and installation", "Equipment and network setup", "Voucher and access management", "Monitoring and technical support"],
   faqs: [
