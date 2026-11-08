@@ -99,7 +99,6 @@ async function Article({ params }: { params: PageProps<"/insights/[slug]">["para
               )}
               <ShareLinks url={url} title={insight.title} />
             </div>
-            <p className="mt-8 rounded-2xl bg-white p-4 text-sm text-muted">Educational content only. Nothing here is financial advice.</p>
           </div>
         </div>
       </article>

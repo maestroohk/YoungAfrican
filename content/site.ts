@@ -157,7 +157,7 @@ export const hotspot = {
   steps: [
     {
       title: "Find a hotspot",
-      text: "Look for the YoungAfrican Wi-Fi network at a hosting location such as a trading centre, campus or community space.",
+      text: "Look for the Young African Wi-Fi network at a hosting location such as a trading centre, campus or community space.",
     },
     {
       title: "Get an access voucher",
@@ -254,14 +254,6 @@ export const photos = {
   analystLaptop: {
     src: unsplash("photo-1604933762021-54a5858c9832"),
     alt: "A woman with braids working on a laptop at a desk",
-  },
-  tradingLaptop: {
-    src: unsplash("photo-1620266757065-5814239881fd"),
-    alt: "Hands on a laptop keyboard with market charts on screen",
-  },
-  candlesDark: {
-    src: unsplash("photo-1611974789855-9c2a0a7236a3"),
-    alt: "Candlestick chart on a dark screen",
   },
   studentsPhone: {
     src: unsplash("photo-1758270704663-9d002a4b42a2"),
