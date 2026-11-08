@@ -12,7 +12,7 @@ export default function NotFound() {
   return (
     <>
       <Header />
-      <main id="main" tabIndex={-1} className="on-dark relative isolate flex-1 overflow-hidden bg-blue text-white outline-none">
+      <main id="main" tabIndex={-1} data-header="blue" className="on-dark relative isolate flex-1 overflow-hidden bg-blue text-white outline-none">
         <Rings className="absolute -right-72 -bottom-96 -z-10 w-[64rem] text-white/12" />
         <section className="container-page py-24 sm:py-32">
           <p className="inline-flex rounded-full bg-white/15 px-3.5 py-1.5 text-sm font-medium">404</p>

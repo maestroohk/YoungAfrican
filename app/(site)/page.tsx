@@ -41,7 +41,7 @@ async function LatestNews() {
 export default function HomePage() {
   return (
     <>
-      <section className="on-dark relative isolate overflow-hidden bg-blue text-white">
+      <section data-header="blue" className="on-dark relative isolate overflow-hidden bg-blue text-white">
         <Rings className="absolute -right-72 -bottom-80 -z-10 w-[70rem] text-white/12" />
         <div className="container-page grid gap-8 pt-10 sm:pt-14 lg:grid-cols-[1.1fr_1fr] lg:gap-4 lg:pt-16">
           <div className="lg:pb-24">

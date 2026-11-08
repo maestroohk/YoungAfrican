@@ -75,7 +75,7 @@ export function PageHero({
 }) {
   const t = heroTones[tone];
   return (
-    <section className={`relative isolate overflow-hidden ${t.section}`}>
+    <section data-header={tone === "paper" ? undefined : tone} className={`relative isolate overflow-hidden ${t.section}`}>
       <Rings className={`absolute -right-72 -bottom-96 -z-10 w-[64rem] ${t.rings}`} />
       <div className="container-page grid gap-10 py-14 sm:py-20 lg:grid-cols-12 lg:items-end lg:py-24">
         <div className={aside ? "lg:col-span-7" : "lg:col-span-9"}>

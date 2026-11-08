@@ -79,3 +79,42 @@
     scroll-behavior: smooth;
   }
 }
+
+.site-header {
+  background-color: #fff;
+  color: var(--color-ink);
+  border-color: var(--color-line);
+  --cta-bg: var(--color-ink);
+  --cta-fg: #fff;
+}
+
+html:has([data-header="blue"]) .site-header:not([data-solid]),
+html:has([data-header="night"]) .site-header:not([data-solid]) {
+  color: #fff;
+  border-color: rgb(255 255 255 / 0.15);
+  --mark-bg: #fff;
+  --mark-fg: var(--color-blue);
+  --cta-bg: #fff;
+  --cta-fg: var(--color-blue-deep);
+}
+
+html:has([data-header="blue"]) .site-header:not([data-solid]) {
+  background-color: var(--color-blue);
+}
+
+html:has([data-header="night"]) .site-header:not([data-solid]) {
+  background-color: var(--color-night);
+}
+
+html:has([data-header="blue"]) .site-header:not([data-solid]) :focus-visible,
+html:has([data-header="night"]) .site-header:not([data-solid]) :focus-visible {
+  outline-color: var(--color-mango);
+}
+
+html:has([data-header="mango"]) .site-header:not([data-solid]) {
+  background-color: var(--color-mango);
+  color: var(--color-mango-ink);
+  border-color: rgb(58 36 0 / 0.1);
+  --cta-bg: var(--color-mango-ink);
+  --cta-fg: #fff;
+}
