@@ -1,103 +1,112 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowUpRight, FileText } from "lucide-react";
-import { CtaBand, Eyebrow } from "@/components/ui";
-import { InsightMeta } from "@/components/InsightCard";
+import { Suspense } from "react";
+import { Label } from "@/components/ui";
+import { StoryLead, StoryRow } from "@/components/InsightCard";
 import { InsightsList } from "@/components/InsightsList";
 import { featuredInsight, getInsights, getInsightsSource } from "@/lib/insights";
 
 export const metadata: Metadata = {
   title: "Insights",
-  description: "Trading insights, market education, connectivity explainers and company updates from YoungAfrican.",
+  description:
+    "Articles on community connectivity, digital markets and artificial intelligence from YoungAfrican. Educational content, never financial advice.",
   alternates: { canonical: "/insights" },
 };
 
-export default async function InsightsPage() {
+async function InsightsFeed() {
   const insights = await getInsights();
   const source = getInsightsSource();
-  const featured = featuredInsight(insights);
+
+  if (insights.length === 0) {
+    return (
+      <div className="container-page py-16">
+        <div className="border-t-2 border-ink pt-6 lg:ml-[25%] lg:w-3/4">
+          <h2 className="font-serif text-[2rem] leading-tight">Our first articles are being edited.</h2>
+          <p className="mt-3 max-w-xl leading-relaxed text-stone">
+            We are preparing articles on community Wi-Fi, digital markets and artificial intelligence. Please check back soon.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  const lead = featuredInsight(insights);
+  const secondary = insights.filter((item) => item.id !== lead.id).slice(0, 3);
 
   return (
     <>
-      <section className="relative overflow-hidden bg-ink text-white">
-        <div aria-hidden className="absolute -top-40 -right-20 size-[36rem] rounded-full bg-lime/[0.06] blur-3xl" />
-        <div className="container-page relative pt-32 pb-16 sm:pt-40 sm:pb-20">
-          <div className="fade-up flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <Eyebrow>Insights</Eyebrow>
-              <h1 className="mt-6 font-display text-5xl leading-[0.95] font-semibold tracking-[-0.045em] sm:text-7xl lg:text-8xl">
-                Notes on markets <span className="font-serif font-normal tracking-[-0.02em] italic">&amp;</span> connectivity.
-              </h1>
-            </div>
-            <p className="max-w-sm text-lg leading-relaxed text-mist">
-              Practical education, research perspectives and company updates. Educational content only, never financial advice.
-            </p>
-          </div>
-
-          {featured && (
-            <article className="group fade-up relative mt-14 grid overflow-hidden rounded-[2rem] bg-ink-2 [animation-delay:150ms] lg:grid-cols-12">
-              <div className="relative aspect-[16/10] lg:col-span-7 lg:aspect-auto lg:min-h-[30rem]">
-                {featured.cover && (
-                  <Image
-                    src={featured.cover.src}
-                    alt={featured.cover.alt}
-                    fill
-                    priority
-                    sizes="(min-width: 1024px) 58vw, 100vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                  />
-                )}
-              </div>
-              <div className="flex flex-col p-7 sm:p-10 lg:col-span-5">
-                <p className="font-mono text-xs tracking-[0.14em] text-lime uppercase">
-                  Featured{featured.category ? ` · ${featured.category.title}` : ""}
-                </p>
-                <h2 className="mt-5 font-display text-3xl leading-[1.08] font-semibold tracking-[-0.03em] text-balance sm:text-4xl">
-                  <Link href={`/insights/${featured.slug}`} className="after:absolute after:inset-0">
-                    {featured.title}
-                  </Link>
-                </h2>
-                <p className="mt-5 leading-relaxed text-mist">{featured.excerpt}</p>
-                <div className="mt-auto flex items-end justify-between gap-4 pt-10">
-                  <InsightMeta insight={featured} tone="dark" />
-                  <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-lime text-ink transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
-                    <ArrowUpRight aria-hidden className="size-5" />
-                  </span>
-                </div>
-              </div>
-            </article>
-          )}
+      {source === "local" && (
+        <div className="container-page pt-8">
+          <p role="note" className="border-l-2 border-copper bg-paper px-4 py-3 text-sm text-stone">
+            <strong className="font-semibold text-ink">Local preview.</strong> Sanity is not connected, so these are the bundled seed
+            articles. They are not published.
+          </p>
         </div>
-      </section>
-
-      <section className="on-light py-16 sm:py-24">
+      )}
+      <section className="py-10 sm:py-14" aria-label="Featured">
         <div className="container-page">
-          {source === "local" && (
-            <p role="note" className="mb-10 rounded-2xl border border-dashed border-ink/25 bg-sand p-5 text-clay">
-              <strong className="font-medium text-ink">Local preview.</strong> Sanity is not connected, so these are the bundled
-              seed articles. They are not published and will not appear on the live site.
-            </p>
-          )}
-          {insights.length > 0 ? (
-            <InsightsList items={insights} />
-          ) : (
-            <div className="flex flex-col items-center rounded-[2rem] border border-dashed border-ink/20 px-6 py-20 text-center">
-              <FileText aria-hidden className="size-10 text-stone" strokeWidth={1.25} />
-              <h2 className="mt-6 font-display text-3xl font-semibold tracking-[-0.03em]">Articles are on their way.</h2>
-              <p className="mt-3 max-w-md text-stone">
-                We are preparing our first insights on markets and connectivity. Please check back soon.
-              </p>
+          <StoryLead insight={lead} priority />
+          {secondary.length > 0 && (
+            <div className="mt-12">
+              <h2 className="label border-t-2 border-ink pt-3 text-stone">Also worth reading</h2>
+              <ul className="mt-5 grid gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
+                {secondary.map((insight) => (
+                  <li key={insight.id}>
+                    <StoryRow insight={insight} />
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
         </div>
       </section>
+      <section className="border-t border-rule bg-paper py-12 sm:py-16" aria-labelledby="all-heading">
+        <div className="container-page">
+          <h2 id="all-heading" className="font-serif text-[1.9rem] leading-tight">
+            Browse by topic
+          </h2>
+          <div className="mt-6">
+            <InsightsList items={insights} />
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
 
-      <CtaBand
-        title="Have a question we should write about?"
-        text="Tell us what you would like explained, and we may cover it in a future article."
-        primary={{ label: "Suggest a topic", href: "/contact?service=other" }}
-      />
+function FeedSkeleton() {
+  return (
+    <div className="container-page py-10 sm:py-14" aria-hidden>
+      <div className="grid gap-6 lg:grid-cols-12 lg:gap-10">
+        <div className="aspect-[16/10] bg-linen lg:col-span-5" />
+        <div className="space-y-4 lg:col-span-3">
+          <div className="h-3 w-24 bg-linen" />
+          <div className="h-8 w-full bg-linen" />
+          <div className="h-8 w-3/4 bg-linen" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function InsightsPage() {
+  return (
+    <>
+      <header className="border-b border-rule">
+        <div className="container-page grid gap-6 pt-12 pb-10 sm:pt-16 lg:grid-cols-12 lg:items-end">
+          <div className="rise lg:col-span-8">
+            <Label>Insights</Label>
+            <h1 className="mt-5 font-serif text-[2.6rem] leading-[1.02] tracking-[-0.02em] sm:text-[3.6rem] lg:text-[4.2rem]">
+              Connectivity, markets and AI, explained plainly.
+            </h1>
+          </div>
+          <p className="max-w-sm leading-relaxed text-stone lg:col-span-4">
+            Practical articles for Ugandan readers. We cite our sources, and nothing here is financial advice.
+          </p>
+        </div>
+      </header>
+      <Suspense fallback={<FeedSkeleton />}>
+        <InsightsFeed />
+      </Suspense>
     </>
   );
 }

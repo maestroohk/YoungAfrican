@@ -1,20 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 
-type ButtonVariant = "lime" | "outline-dark" | "ink" | "outline-light";
+type ButtonVariant = "primary" | "dark" | "outline" | "light" | "outline-light";
 
 const buttonStyles: Record<ButtonVariant, string> = {
-  lime: "bg-lime text-ink hover:bg-white",
-  "outline-dark": "border border-white/20 text-white hover:border-white hover:bg-white hover:text-ink",
-  ink: "bg-ink text-white hover:bg-ink-3",
-  "outline-light": "border border-ink/20 text-ink hover:border-ink hover:bg-ink hover:text-white",
+  primary: "bg-cobalt text-white hover:bg-cobalt-deep",
+  dark: "bg-ink text-ivory hover:bg-charcoal",
+  outline: "border border-ink/25 text-ink hover:border-ink",
+  light: "bg-ivory text-ink hover:bg-white",
+  "outline-light": "border border-white/35 text-white hover:border-white",
 };
 
 export function ButtonLink({
   href,
-  variant = "lime",
+  variant = "primary",
   children,
   className = "",
   ...props
@@ -22,75 +23,66 @@ export function ButtonLink({
   return (
     <Link
       href={href}
-      className={`group inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-[0.95rem] font-medium transition-colors duration-200 ${buttonStyles[variant]} ${className}`}
+      className={`group inline-flex min-h-12 items-center justify-center gap-3 rounded-[3px] px-5 text-[0.95rem] font-medium transition-colors duration-200 ${buttonStyles[variant]} ${className}`}
       {...props}
     >
       {children}
-      <ArrowUpRight
-        aria-hidden
-        className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-      />
+      <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
     </Link>
   );
 }
 
-export function Eyebrow({ children, tone = "dark" }: { children: ReactNode; tone?: "dark" | "light" }) {
+export function TextLink({ href, children, className = "" }: { href: string; children: ReactNode; className?: string }) {
   return (
-    <p
-      className={`flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.14em] ${
-        tone === "dark" ? "text-mist" : "text-stone"
-      }`}
+    <Link
+      href={href}
+      className={`group inline-flex min-h-11 items-center gap-2 font-medium underline decoration-current/30 underline-offset-[6px] transition-colors hover:decoration-current ${className}`}
     >
-      <span aria-hidden className="size-1.5 rounded-full bg-lime" />
+      {children}
+      <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-0.5" />
+    </Link>
+  );
+}
+
+export function Label({ children, tone = "light", className = "" }: { children: ReactNode; tone?: "light" | "dark"; className?: string }) {
+  return (
+    <p className={`label flex items-center gap-3 ${tone === "dark" ? "text-white/75" : "text-stone"} ${className}`}>
+      <span aria-hidden className="h-px w-6 bg-copper" />
       {children}
     </p>
   );
 }
 
-export function SectionHeading({
-  eyebrow,
+export function SectionHeader({
+  label,
   title,
   intro,
   tone = "light",
-  className = "",
+  id,
+  children,
 }: {
-  eyebrow: string;
+  label: string;
   title: ReactNode;
   intro?: ReactNode;
-  tone?: "dark" | "light";
-  className?: string;
+  tone?: "light" | "dark";
+  id?: string;
+  children?: ReactNode;
 }) {
   return (
-    <div className={`max-w-3xl ${className}`}>
-      <Eyebrow tone={tone === "dark" ? "dark" : "light"}>{eyebrow}</Eyebrow>
-      <h2 className="mt-5 font-display text-[2.1rem] leading-[1.05] font-semibold tracking-[-0.03em] text-balance sm:text-5xl">
-        {title}
-      </h2>
-      {intro && (
-        <p
-          className={`mt-5 max-w-2xl text-lg leading-relaxed text-pretty ${
-            tone === "dark" ? "text-mist" : "text-stone"
-          }`}
-        >
-          {intro}
-        </p>
-      )}
+    <div className={`grid gap-6 border-t pt-6 lg:grid-cols-12 lg:gap-10 ${tone === "dark" ? "border-white/15" : "border-rule"}`}>
+      <div className="lg:col-span-3">
+        <Label tone={tone}>{label}</Label>
+      </div>
+      <div className="lg:col-span-9">
+        <h2 id={id} className="max-w-3xl font-serif text-[2rem] leading-[1.1] font-normal tracking-[-0.015em] text-balance sm:text-[2.6rem]">
+          {title}
+        </h2>
+        {intro && (
+          <p className={`mt-4 max-w-2xl text-lg leading-relaxed text-pretty ${tone === "dark" ? "text-white/80" : "text-stone"}`}>{intro}</p>
+        )}
+        {children}
+      </div>
     </div>
-  );
-}
-
-export function Logo({ className = "" }: { className?: string }) {
-  return (
-    <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <svg viewBox="0 0 32 32" aria-hidden className="size-8 shrink-0">
-        <rect width="32" height="32" rx="9" fill="#c8f03c" />
-        <path d="M9 9.5 16 18l7-8.5" fill="none" stroke="#0b0c0a" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M16 18v5.5" stroke="#0b0c0a" strokeWidth="2.6" strokeLinecap="round" />
-      </svg>
-      <span className="font-display text-xl font-semibold tracking-[-0.03em]">
-        Young<span className="font-normal">African</span>
-      </span>
-    </span>
   );
 }
 
@@ -103,109 +95,62 @@ export function Photo({
   sizes = "100vw",
   priority = false,
   imageClassName = "",
-}: PhotoSource & { className?: string; sizes?: string; priority?: boolean; imageClassName?: string }) {
-  return (
-    <div className={`overflow-hidden bg-ink-3 ${className.includes("absolute") ? "" : "relative"} ${className}`}>
+  caption,
+}: PhotoSource & { className?: string; sizes?: string; priority?: boolean; imageClassName?: string; caption?: ReactNode }) {
+  const frame = (
+    <div className={`overflow-hidden rounded-[2px] bg-linen ${className.includes("absolute") ? "" : "relative"} ${className}`}>
       <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className={`object-cover ${imageClassName}`} />
     </div>
   );
+  if (!caption) return frame;
+  return (
+    <figure>
+      {frame}
+      <figcaption className="mt-2.5 text-sm text-stone">{caption}</figcaption>
+    </figure>
+  );
 }
 
-export function PageHero({
-  eyebrow,
+export function Logo({ tone = "dark" }: { tone?: "dark" | "light" }) {
+  return (
+    <span className="inline-flex items-center gap-2.5">
+      <svg viewBox="0 0 32 32" aria-hidden className="size-8 shrink-0">
+        <rect width="32" height="32" rx="3" fill="#2343c4" />
+        <path d="M9.5 9 16 17.5 22.5 9" fill="none" stroke="#f5f1e8" strokeWidth="2.4" strokeLinecap="square" />
+        <path d="M16 17.5V24" stroke="#f5f1e8" strokeWidth="2.4" strokeLinecap="square" />
+      </svg>
+      <span className={`text-[1.15rem] font-semibold tracking-[-0.02em] ${tone === "light" ? "text-white" : "text-ink"}`}>
+        YoungAfrican
+      </span>
+    </span>
+  );
+}
+
+export function PageHeader({
+  label,
   title,
   intro,
   children,
   aside,
-  image,
 }: {
-  eyebrow: string;
+  label: string;
   title: ReactNode;
   intro: ReactNode;
   children?: ReactNode;
   aside?: ReactNode;
-  image?: PhotoSource;
-}) {
-  if (image) {
-    return (
-      <section className="relative isolate flex min-h-[88svh] items-end overflow-hidden bg-ink text-white">
-        <Photo {...image} priority className="absolute inset-0 -z-10" imageClassName="hero-zoom" />
-        <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/70 to-ink/20" />
-        <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/80 via-ink/30 to-transparent" />
-        <div className="container-page fade-up pt-36 pb-14 sm:pb-20">
-          <Eyebrow>{eyebrow}</Eyebrow>
-          <h1 className="mt-6 max-w-4xl font-display text-[2.7rem] leading-[0.98] font-semibold tracking-[-0.04em] text-balance xs:text-5xl sm:text-7xl lg:text-[5.5rem]">
-            {title}
-          </h1>
-          <div className="mt-8 grid gap-8 lg:grid-cols-12 lg:items-end">
-            <p className="max-w-xl text-lg leading-relaxed text-white/75 text-pretty lg:col-span-6">{intro}</p>
-            {children && <div className="flex flex-wrap gap-3 lg:col-span-6 lg:justify-end">{children}</div>}
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  return (
-    <section className="relative overflow-hidden bg-ink text-white">
-      <div aria-hidden className="absolute -top-40 right-0 size-[36rem] rounded-full bg-lime/[0.07] blur-3xl" />
-      <div className="container-page relative grid gap-12 pt-32 pb-16 sm:pt-40 sm:pb-24 lg:grid-cols-12 lg:items-center">
-        <div className="fade-up lg:col-span-6">
-          <Eyebrow>{eyebrow}</Eyebrow>
-          <h1 className="mt-6 font-display text-[2.6rem] leading-[1] font-semibold tracking-[-0.04em] text-balance xs:text-5xl sm:text-6xl lg:text-7xl">
-            {title}
-          </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-mist text-pretty">{intro}</p>
-          {children && <div className="mt-9 flex flex-wrap gap-3">{children}</div>}
-        </div>
-        {aside && <div className="fade-up [animation-delay:150ms] lg:col-span-6">{aside}</div>}
-      </div>
-    </section>
-  );
-}
-
-export function CtaBand({
-  title,
-  text,
-  primary,
-  secondary,
-  image,
-}: {
-  title: ReactNode;
-  text: string;
-  primary: { label: string; href: string };
-  secondary?: { label: string; href: string };
-  image?: PhotoSource;
 }) {
   return (
-    <section className="py-10 sm:py-16">
-      <div className="container-page">
-        <div className="relative isolate overflow-hidden rounded-[2rem] bg-ink px-6 py-14 text-white sm:px-12 sm:py-20 lg:px-16">
-          {image ? (
-            <>
-              <Photo {...image} sizes="(min-width: 1280px) 1200px, 100vw" className="absolute inset-0 -z-10" />
-              <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/85 to-ink/40" />
-            </>
-          ) : (
-            <div aria-hidden className="absolute -top-24 -right-24 -z-10 size-80 rounded-full bg-lime/15 blur-3xl" />
-          )}
-          <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
-            <h2 className="font-display text-4xl leading-[1.02] font-semibold tracking-[-0.035em] text-balance sm:text-6xl lg:col-span-8">
-              {title}
-            </h2>
-            <div className="lg:col-span-4">
-              <p className="text-lg leading-relaxed text-white/75">{text}</p>
-              <div className="mt-7 flex flex-wrap gap-3">
-                <ButtonLink href={primary.href}>{primary.label}</ButtonLink>
-                {secondary && (
-                  <ButtonLink href={secondary.href} variant="outline-dark">
-                    {secondary.label}
-                  </ButtonLink>
-                )}
-              </div>
-            </div>
-          </div>
+    <section className="border-b border-rule">
+      <div className="container-page grid gap-10 pt-12 pb-12 sm:pt-16 lg:grid-cols-12 lg:gap-10 lg:pb-16">
+        <div className="rise lg:col-span-7">
+          <Label>{label}</Label>
+          <h1 className="mt-5 max-w-3xl font-serif text-[2.4rem] leading-[1.05] font-normal tracking-[-0.02em] text-balance sm:text-[3.4rem] lg:text-[4rem]">
+            {title}
+          </h1>
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-stone text-pretty">{intro}</p>
+          {children && <div className="mt-8 flex flex-wrap gap-3">{children}</div>}
         </div>
+        {aside && <div className="rise [animation-delay:120ms] lg:col-span-5">{aside}</div>}
       </div>
     </section>
   );

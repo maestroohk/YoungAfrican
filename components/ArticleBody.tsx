@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Info } from "lucide-react";
 import { PortableText, type PortableTextBlock, type PortableTextComponents } from "next-sanity";
 import { urlFor } from "@/sanity/lib";
 
@@ -12,39 +11,36 @@ type BodyImage = {
 
 const components: PortableTextComponents = {
   block: {
-    normal: ({ children }) => <p className="my-6">{children}</p>,
+    normal: ({ children }) => <p className="my-5">{children}</p>,
     h2: ({ children }) => (
-      <h2 className="mt-14 mb-4 font-display text-3xl leading-tight font-semibold tracking-[-0.025em] text-ink">{children}</h2>
+      <h2 className="mt-12 mb-3 font-sans text-[1.45rem] leading-snug font-semibold tracking-[-0.01em] text-ink">{children}</h2>
     ),
-    h3: ({ children }) => <h3 className="mt-10 mb-3 font-display text-2xl font-semibold tracking-[-0.02em] text-ink">{children}</h3>,
+    h3: ({ children }) => <h3 className="mt-8 mb-2 font-sans text-[1.15rem] font-semibold text-ink">{children}</h3>,
     blockquote: ({ children }) => (
-      <blockquote className="my-10 border-l-2 border-lime pl-6 font-serif text-3xl leading-snug text-ink italic">{children}</blockquote>
+      <blockquote className="my-8 border-l-2 border-copper pl-5 text-[1.35rem] leading-snug text-ink italic">{children}</blockquote>
     ),
   },
   list: {
-    bullet: ({ children }) => <ul className="my-6 space-y-3">{children}</ul>,
-    number: ({ children }) => <ol className="my-6 list-decimal space-y-3 pl-6 marker:font-mono marker:text-stone">{children}</ol>,
+    bullet: ({ children }) => <ul className="my-5 list-disc space-y-2 pl-6 marker:text-copper">{children}</ul>,
+    number: ({ children }) => <ol className="my-5 list-decimal space-y-2 pl-6 marker:text-copper">{children}</ol>,
   },
   listItem: {
-    bullet: ({ children }) => (
-      <li className="flex gap-4">
-        <span aria-hidden className="mt-3 size-1.5 shrink-0 rounded-full bg-ink" />
-        <span>{children}</span>
-      </li>
-    ),
-    number: ({ children }) => <li className="pl-2">{children}</li>,
+    bullet: ({ children }) => <li className="pl-1">{children}</li>,
+    number: ({ children }) => <li className="pl-1">{children}</li>,
   },
   marks: {
+    strong: ({ children }) => <strong className="font-semibold text-ink">{children}</strong>,
     link: ({ children, value }) => {
       const href: string = value?.href ?? "#";
       const external = href.startsWith("http");
       return (
         <a
           href={href}
-          className="font-medium text-ink underline decoration-lime decoration-2 underline-offset-4 hover:decoration-ink"
+          className="text-cobalt underline decoration-cobalt/35 underline-offset-[3px] hover:decoration-cobalt"
           {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
         >
           {children}
+          {external && <span className="sr-only"> (opens in a new tab)</span>}
         </a>
       );
     },
@@ -52,26 +48,23 @@ const components: PortableTextComponents = {
   types: {
     image: ({ value }: { value: BodyImage }) => {
       if (!value.asset) return null;
-      const width = value.dimensions?.width ?? 1600;
-      const height = value.dimensions?.height ?? 1000;
       return (
         <figure className="my-10">
           <Image
             src={urlFor(value).width(1600).fit("max").url()}
             alt={value.alt ?? ""}
-            width={width}
-            height={height}
-            sizes="(min-width: 768px) 44rem, 100vw"
-            className="h-auto w-full rounded-2xl"
+            width={value.dimensions?.width ?? 1600}
+            height={value.dimensions?.height ?? 1000}
+            sizes="(min-width: 768px) 42rem, 100vw"
+            className="h-auto w-full rounded-[2px]"
           />
-          {value.caption && <figcaption className="mt-3 text-sm text-stone">{value.caption}</figcaption>}
+          {value.caption && <figcaption className="mt-2.5 font-sans text-sm text-stone">{value.caption}</figcaption>}
         </figure>
       );
     },
     callout: ({ value }: { value: { text: string } }) => (
-      <aside className="my-10 flex gap-4 rounded-2xl border border-ink/15 bg-sand p-6 text-base leading-relaxed">
-        <Info aria-hidden className="mt-0.5 size-5 shrink-0" />
-        <p>{value.text}</p>
+      <aside className="my-8 border-l-2 border-copper bg-linen px-5 py-4 font-sans text-base leading-relaxed text-charcoal">
+        {value.text}
       </aside>
     ),
   },
@@ -79,7 +72,7 @@ const components: PortableTextComponents = {
 
 export function ArticleBody({ value }: { value: PortableTextBlock[] }) {
   return (
-    <div className="text-lg leading-[1.8] text-ink/85 [&>*:first-child]:mt-0">
+    <div className="font-serif text-[1.2rem] leading-[1.7] text-charcoal [&>*:first-child]:mt-0">
       <PortableText value={value} components={components} />
     </div>
   );

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { ButtonLink } from "@/components/ui";
+import { ButtonLink, Label } from "@/components/ui";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Page not found",
+  robots: { index: false },
 };
 
 export default function NotFound() {
@@ -12,18 +13,17 @@ export default function NotFound() {
     <>
       <Header />
       <main id="main" tabIndex={-1} className="flex-1 outline-none">
-        <section className="relative flex min-h-[80dvh] items-center overflow-hidden bg-ink text-white">
-          <div aria-hidden className="absolute top-1/4 left-1/2 size-[32rem] -translate-x-1/2 rounded-full bg-lime/10 blur-3xl" />
-          <div className="container-page relative py-32">
-            <p className="font-mono text-sm tracking-[0.14em] text-lime uppercase">404 · No signal</p>
-            <h1 className="mt-6 max-w-3xl font-display text-5xl leading-[1] font-semibold tracking-[-0.04em] sm:text-7xl">
+        <section className="container-page py-20 sm:py-28">
+          <div className="border-t-2 border-ink pt-6 lg:ml-[25%] lg:w-3/4">
+            <Label>404</Label>
+            <h1 className="mt-5 max-w-2xl font-serif text-[2.6rem] leading-[1.05] tracking-[-0.02em] sm:text-[3.6rem]">
               We couldn’t find that page.
             </h1>
-            <p className="mt-6 max-w-lg text-lg text-mist">It may have moved, or the link may be incorrect.</p>
-            <div className="mt-10 flex flex-wrap gap-3">
+            <p className="mt-5 max-w-lg text-lg text-stone">It may have moved, it may not be published yet, or the link may be wrong.</p>
+            <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="/">Back to home</ButtonLink>
-              <ButtonLink href="/contact" variant="outline-dark">
-                Contact us
+              <ButtonLink href="/insights" variant="outline">
+                Browse insights
               </ButtonLink>
             </div>
           </div>

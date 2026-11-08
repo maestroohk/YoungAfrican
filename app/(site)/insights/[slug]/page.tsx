@@ -2,15 +2,13 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { ArrowLeft } from "lucide-react";
 import { ArticleBody } from "@/components/ArticleBody";
-import { CtaBand } from "@/components/ui";
-import { InsightCard, InsightMeta } from "@/components/InsightCard";
+import { InsightMeta, StoryCard } from "@/components/InsightCard";
 import { ShareLinks } from "@/components/ShareLinks";
 import { site } from "@/content/site";
 import { getInsight, getInsights } from "@/lib/insights";
-
-export const instant = false;
 
 export async function generateStaticParams() {
   const insights = await getInsights();
@@ -20,7 +18,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/insights/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const insight = await getInsight(slug);
-  if (!insight) return { title: "Article not found" };
+  if (!insight) return { title: "Article not found", robots: { index: false } };
 
   const title = insight.seoTitle || insight.title;
   const description = insight.seoDescription || insight.excerpt;
@@ -43,7 +41,7 @@ export async function generateMetadata({ params }: PageProps<"/insights/[slug]">
   };
 }
 
-export default async function InsightPage({ params }: PageProps<"/insights/[slug]">) {
+async function Article({ params }: { params: PageProps<"/insights/[slug]">["params"] }) {
   const { slug } = await params;
   const insight = await getInsight(slug);
   if (!insight) notFound();
@@ -52,79 +50,98 @@ export default async function InsightPage({ params }: PageProps<"/insights/[slug
 
   return (
     <>
-      <section className="bg-ink text-white">
-        <div className="container-page fade-up pt-32 pb-24 sm:pt-40 sm:pb-32">
-          <Link href="/insights" className="inline-flex min-h-11 items-center gap-2 text-sm text-mist transition-colors hover:text-white">
+      <article>
+        <header className="container-page pt-8 sm:pt-12">
+          <Link href="/insights" className="inline-flex min-h-11 items-center gap-2 text-sm text-stone hover:text-ink">
             <ArrowLeft aria-hidden className="size-4" />
             All insights
           </Link>
-          {insight.category && (
-            <p className="mt-8 font-mono text-xs tracking-[0.14em] text-lime uppercase">{insight.category.title}</p>
-          )}
-          <h1 className="mt-5 max-w-5xl font-display text-4xl leading-[1.02] font-semibold tracking-[-0.04em] text-balance sm:text-6xl lg:text-7xl">
-            {insight.title}
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-mist sm:text-xl">{insight.excerpt}</p>
-          <div className="mt-10 flex flex-col gap-6 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-            <InsightMeta insight={insight} tone="dark" />
-            <div className="text-white">
-              <ShareLinks url={url} title={insight.title} />
+          <div className="mt-6 grid gap-6 border-t-2 border-ink pt-6 lg:grid-cols-12 lg:gap-10">
+            <div className="lg:col-span-3">
+              {insight.category && <p className="label text-copper">{insight.category.title}</p>}
+              <div className="mt-3">
+                <InsightMeta insight={insight} />
+              </div>
+            </div>
+            <div className="lg:col-span-9">
+              <h1 className="max-w-4xl font-serif text-[2.3rem] leading-[1.08] tracking-[-0.02em] text-balance sm:text-[3.2rem]">
+                {insight.title}
+              </h1>
+              <p className="mt-5 max-w-2xl text-lg leading-relaxed text-stone sm:text-xl">{insight.excerpt}</p>
             </div>
           </div>
-        </div>
-      </section>
+        </header>
 
-      {insight.cover && (
-        <div className="container-page -mt-14 sm:-mt-20">
-          <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] bg-sand">
-            <Image src={insight.cover.src} alt={insight.cover.alt} fill priority sizes="(min-width: 1280px) 1200px, 100vw" className="object-cover" />
-          </div>
-        </div>
-      )}
+        {insight.cover && (
+          <figure className="container-page mt-10">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-[2px] bg-linen lg:aspect-[21/9]">
+              <Image src={insight.cover.src} alt={insight.cover.alt} fill priority sizes="(min-width: 1280px) 1200px, 100vw" className="object-cover" />
+            </div>
+            <figcaption className="mt-2.5 text-sm text-stone">{insight.cover.alt}</figcaption>
+          </figure>
+        )}
 
-      <article className="on-light py-16 sm:py-24">
-        <div className="container-page">
-          <div className="mx-auto max-w-[44rem]">
+        <div className="container-page grid gap-10 py-10 sm:py-14 lg:grid-cols-12">
+          <aside className="order-last lg:order-none lg:col-span-3">
+            <div className="lg:sticky lg:top-24">
+              {insight.author && (
+                <div className="border-t border-rule pt-4">
+                  <p className="label text-stone">Written by</p>
+                  <p className="mt-2 font-semibold">{insight.author.name}</p>
+                  {insight.author.role && <p className="text-sm text-stone">{insight.author.role}</p>}
+                </div>
+              )}
+              <div className="mt-6 border-t border-rule pt-4">
+                <ShareLinks url={url} title={insight.title} />
+              </div>
+            </div>
+          </aside>
+          <div className="lg:col-span-7">
             {!insight.publishedAt && (
-              <p role="note" className="mb-10 rounded-2xl border border-dashed border-ink/25 bg-sand p-4 text-sm text-clay">
+              <p role="note" className="mb-8 border-l-2 border-copper bg-paper px-4 py-3 text-sm text-stone">
                 This article is not published. You are seeing it in a preview.
               </p>
             )}
             <ArticleBody value={insight.body} />
-            {insight.author && (
-              <div className="mt-16 flex flex-col gap-6 border-t border-ink/15 pt-8 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <p className="font-mono text-xs tracking-[0.12em] text-stone uppercase">Written by</p>
-                  <p className="mt-2 font-display text-xl font-semibold">{insight.author.name}</p>
-                  {insight.author.role && <p className="text-stone">{insight.author.role}</p>}
-                </div>
-                <ShareLinks url={url} title={insight.title} />
-              </div>
-            )}
           </div>
         </div>
       </article>
 
       {insight.related.length > 0 && (
-        <section className="on-light border-t border-ink/10 bg-bone py-16 sm:py-24">
+        <section className="border-t border-rule bg-paper py-12 sm:py-16" aria-labelledby="related-heading">
           <div className="container-page">
-            <h2 className="font-display text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">Related articles</h2>
-            <ul className="mt-10 grid gap-x-6 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+            <h2 id="related-heading" className="font-serif text-[1.9rem] leading-tight">
+              Related reading
+            </h2>
+            <ul className="mt-8 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
               {insight.related.map((item) => (
                 <li key={item.id}>
-                  <InsightCard insight={item} />
+                  <StoryCard insight={item} />
                 </li>
               ))}
             </ul>
           </div>
         </section>
       )}
-
-      <CtaBand
-        title="Questions about this topic?"
-        text="We are happy to talk it through. Educational conversations only, never personal financial advice."
-        primary={{ label: "Contact us", href: "/contact" }}
-      />
     </>
+  );
+}
+
+function ArticleSkeleton() {
+  return (
+    <div className="container-page pt-12 pb-20" aria-hidden>
+      <div className="h-3 w-24 bg-linen" />
+      <div className="mt-8 h-12 w-3/4 bg-linen" />
+      <div className="mt-4 h-12 w-1/2 bg-linen" />
+      <div className="mt-10 aspect-[21/9] bg-linen" />
+    </div>
+  );
+}
+
+export default function InsightPage({ params }: PageProps<"/insights/[slug]">) {
+  return (
+    <Suspense fallback={<ArticleSkeleton />}>
+      <Article params={params} />
+    </Suspense>
   );
 }
