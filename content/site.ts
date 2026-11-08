@@ -36,7 +36,7 @@ export const usageGap = {
 export const legalNotice =
   "Young African Internet is committed to expanding access to affordable and dependable connectivity for communities in Uganda. Service availability, package terms and coverage depend on the location and the active service offering, and services are introduced only once the required approvals are in place. Photographs are illustrative; the people shown are not customers or staff.";
 
-export const statusNotice = "We are preparing our first service areas in Uganda. Packages, prices and coverage will be published here when they go live.";
+export const statusNotice = "Internet packages start at UGX 500 for 3 hours. We are preparing our first service areas in Uganda.";
 
 export const about = {
   intro:
@@ -71,7 +71,7 @@ export const values = [
 export const products = [
   {
     title: "Cheap internet",
-    text: "Affordable internet options for everyday use, with the price, duration, allowance and renewal steps stated clearly for every package.",
+    text: "From UGX 500 for 3 hours to UGX 25,000 for 30 days, with the price, duration and devices stated clearly for every package.",
   },
   {
     title: "Quality standard network",
@@ -83,14 +83,34 @@ export const products = [
   },
 ];
 
-export const packageFormats = [
-  { name: "Daily pass", text: "Short access for a day of browsing, study or calls.", bestFor: "Occasional use and visitors" },
-  { name: "Weekly package", text: "A week of access at a lower cost per day.", bestFor: "Students and regular users" },
-  { name: "Monthly subscription", text: "Ongoing access for people who are online every day.", bestFor: "Daily users and families" },
-  { name: "Home and business", text: "A connection for a household, shop or office.", bestFor: "Homes, shops and small offices" },
+export const packages = [
+  {
+    group: "Short passes",
+    items: [
+      { name: "3 hours", price: 500, devices: 1 },
+      { name: "12 hours", price: 800, devices: 1 },
+      { name: "24 hours", price: 1000, devices: 1, highlight: true },
+    ],
+  },
+  {
+    group: "Weekend and weekly",
+    items: [
+      { name: "Weekend", price: 3500, devices: 1 },
+      { name: "7 days", price: 5000, devices: 1 },
+    ],
+  },
+  {
+    group: "Monthly",
+    items: [
+      { name: "30 days", price: 25000, devices: 1 },
+      { name: "30 days, 3 devices", price: 45000, devices: 3 },
+    ],
+  },
 ];
 
-export const packageDetails = ["Price", "Duration", "Data allowance or fair-use terms", "Speed expectations", "Coverage area", "How to renew"];
+export const ugx = (amount: number) => `UGX ${amount.toLocaleString("en-US")}`;
+
+export const packageDetails = ["Price in Uganda shillings", "How long it lasts", "How many devices", "Where it works", "How to buy a voucher", "How to renew"];
 
 export const connectSteps = [
   { title: "Check coverage", text: "Make sure Young African Internet is available in your area." },
@@ -174,19 +194,19 @@ export const hotspot = {
   ],
   options: [
     {
-      name: "Time-based passes",
-      how: "Unlimited browsing for a fixed period, such as an hour, a day or a week.",
-      bestFor: "Studying, video calls and longer work sessions.",
+      name: "Short passes",
+      how: "3, 12 or 24 hours of browsing, from UGX 500.",
+      bestFor: "A study session, a busy day or a quick top-up.",
     },
     {
-      name: "Data-based bundles",
-      how: "A fixed amount of data to use at your own pace while connected.",
-      bestFor: "Messaging, mobile money checks and occasional browsing.",
+      name: "Weekend and weekly passes",
+      how: "A weekend for UGX 3,500 or 7 days for UGX 5,000.",
+      bestFor: "Regular users who are online most days.",
     },
     {
-      name: "Group and host access",
-      how: "Access arranged for a hosting partner’s staff, members or customers.",
-      bestFor: "Businesses, schools and community groups hosting a hotspot.",
+      name: "Monthly plans",
+      how: "30 days for UGX 25,000, or UGX 45,000 for 3 devices at once.",
+      bestFor: "Daily users, families and small shops.",
     },
   ],
   places: ["Trading centres and markets", "Campuses and schools", "Transport stages", "Community centres", "Shops and cafés"],
@@ -207,7 +227,7 @@ export const hotspot = {
     },
     {
       q: "What will it cost?",
-      a: "Prices will be published when the first hotspots open. Our aim is to make short, small purchases affordable.",
+      a: "Packages start at UGX 500 for 3 hours and UGX 1,000 for 24 hours. Weekly and monthly packages are on the packages page.",
     },
     {
       q: "Can my business or school host a hotspot?",

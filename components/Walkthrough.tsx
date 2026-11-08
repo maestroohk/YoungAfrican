@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Check, ChevronRight, Clock, Database, Globe, Lock, RotateCcw, Router, ShieldCheck, Smartphone, Wifi } from "lucide-react";
+import { ArrowRight, Check, ChevronRight, Clock, Globe, Lock, RotateCcw, Router, ShieldCheck, Smartphone, Wifi } from "lucide-react";
 
 const audiences = [
   { id: "people", label: "Get online" },
@@ -27,8 +27,8 @@ const steps = [
   },
   {
     title: "Choose access",
-    phone: "Pick a time pass or a data bundle, whichever suits how you browse.",
-    behind: "Options and prices are set for each site and will be published before any hotspot opens.",
+    phone: "Pick how long you need: 3 hours for UGX 500, 12 hours for UGX 800 or 24 hours for UGX 1,000.",
+    behind: "Every package is time-based, so you always know when it ends. Longer packages run for a weekend, 7 days or 30 days.",
   },
   {
     title: "Enter a voucher",
@@ -105,41 +105,39 @@ function Status({ step, expired }: { step: number; expired: boolean }) {
   );
 }
 
+const passes = [
+  { name: "3 hours", hours: 3, price: "UGX 500" },
+  { name: "12 hours", hours: 12, price: "UGX 800" },
+  { name: "24 hours", hours: 24, price: "UGX 1,000" },
+];
+
 function PeopleDemo() {
   const [step, setStep] = useState(0);
-  const [plan, setPlan] = useState<"time" | "data" | null>(null);
+  const [plan, setPlan] = useState<(typeof passes)[number] | null>(null);
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
-  const [seconds, setSeconds] = useState(3600);
-  const [megabytes, setMegabytes] = useState(500);
-  const expired = step === 4 && (plan === "time" ? seconds === 0 : megabytes === 0);
+  const [seconds, setSeconds] = useState(0);
+  const expired = step === 4 && seconds === 0;
 
   useEffect(() => {
-    if (step !== 4 || plan !== "time") return;
+    if (step !== 4) return;
     const timer = setInterval(() => setSeconds((value) => Math.max(0, value - 1)), 1000);
     return () => clearInterval(timer);
-  }, [step, plan]);
-
-  const resetAllowance = () => {
-    setSeconds(3600);
-    setMegabytes(500);
-  };
+  }, [step]);
 
   const restart = () => {
     setStep(0);
     setPlan(null);
     setCode("");
     setError("");
-    resetAllowance();
   };
 
   const newVoucher = () => {
     setCode("");
-    resetAllowance();
     setStep(3);
   };
 
-  const fastForward = () => (plan === "time" ? setSeconds(3) : setMegabytes(0));
+  const fastForward = () => setSeconds(3);
 
   const submit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -148,13 +146,14 @@ function PeopleDemo() {
       return;
     }
     setError("");
+    setSeconds((plan?.hours ?? 3) * 3600);
     setStep(4);
   };
 
   const current = expired
-    ? { title: "Voucher used up", phone: "The session has ended. Enter a new voucher to keep browsing.", behind: "The hotspot closes internet access when the time or data on a voucher runs out." }
+    ? { title: "Voucher used up", phone: "The session has ended. Enter a new voucher to keep browsing.", behind: "The hotspot closes internet access when the time on a voucher runs out." }
     : steps[step];
-  const clock = `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
+  const clock = [Math.floor(seconds / 3600), Math.floor((seconds % 3600) / 60), seconds % 60].map((part) => String(part).padStart(2, "0")).join(":");
   const button = "min-h-12 rounded-full bg-blue text-sm font-semibold text-white transition-colors hover:bg-blue-deep disabled:opacity-40";
 
   return (
@@ -216,27 +215,22 @@ function PeopleDemo() {
                 <>
                   <p className="text-lg font-semibold">Choose access</p>
                   <div className="mt-4 space-y-2.5">
-                    {[
-                      { id: "time" as const, icon: Clock, title: "Time pass", text: "Browse freely for a set time" },
-                      { id: "data" as const, icon: Database, title: "Data bundle", text: "Use a set amount of data" },
-                    ].map((option) => (
+                    {passes.map((option) => (
                       <button
-                        key={option.id}
+                        key={option.name}
                         type="button"
-                        aria-pressed={plan === option.id}
-                        onClick={() => setPlan(option.id)}
-                        className={`flex w-full items-start gap-3 rounded-lg border p-3 text-left transition-colors ${
-                          plan === option.id ? "border-blue bg-blue/8" : "border-line hover:border-ink/30"
+                        aria-pressed={plan?.name === option.name}
+                        onClick={() => setPlan(option)}
+                        className={`flex w-full items-center gap-3 rounded-lg border p-3 text-left transition-colors ${
+                          plan?.name === option.name ? "border-blue bg-blue/8" : "border-line hover:border-ink/30"
                         }`}
                       >
-                        <option.icon aria-hidden className="mt-0.5 size-5 shrink-0 text-blue" />
-                        <span>
-                          <span className="block font-semibold">{option.title}</span>
-                          <span className="block text-sm text-muted">{option.text}</span>
-                          <span className="mt-1 block text-xs text-muted">Price to be announced</span>
-                        </span>
+                        <Clock aria-hidden className="size-5 shrink-0 text-blue" />
+                        <span className="flex-1 font-semibold">{option.name}</span>
+                        <span className="text-sm font-semibold tabular-nums">{option.price}</span>
                       </button>
                     ))}
+                    <p className="text-xs text-muted">More packages, up to 30 days, on the packages page.</p>
                   </div>
                   <button type="button" disabled={!plan} onClick={() => setStep(3)} className={`mt-auto ${button}`}>
                     Continue
@@ -278,7 +272,7 @@ function PeopleDemo() {
                     <Clock aria-hidden className="size-6" />
                   </span>
                   <p className="mt-5 text-2xl font-semibold">Session ended</p>
-                  <p className="mt-1 text-sm text-muted">{plan === "time" ? "Your time pass has run out." : "Your data bundle is used up."}</p>
+                  <p className="mt-1 text-sm text-muted">Your {plan?.name} package has run out.</p>
                   <p className="mt-6 rounded-lg bg-paper p-4 text-sm leading-relaxed text-muted">Buy another voucher from a local agent to continue.</p>
                   <button type="button" onClick={newVoucher} className={`mt-auto ${button}`}>
                     Enter a new voucher
@@ -293,20 +287,11 @@ function PeopleDemo() {
                   </span>
                   <p className="mt-5 text-2xl font-semibold">You are online</p>
                   <p className="mt-1 text-sm text-muted">
-                    {plan === "time" ? "Time pass" : "Data bundle"} · {code}
+                    {plan?.name} · {code}
                   </p>
                   <div className="mt-6 rounded-lg border border-line bg-white p-4">
-                    <p className="text-xs text-muted">{plan === "time" ? "Time left" : "Data left"}</p>
-                    {plan === "time" ? (
-                      <p className="mt-1 text-3xl font-semibold tabular-nums">{clock}</p>
-                    ) : (
-                      <>
-                        <p className="mt-1 text-3xl font-semibold tabular-nums">{megabytes} MB</p>
-                        <div className="mt-2 h-2 overflow-hidden rounded-full bg-ink/10">
-                          <div className="h-full rounded-full bg-blue" style={{ width: `${megabytes / 5}%` }} />
-                        </div>
-                      </>
-                    )}
+                    <p className="text-xs text-muted">Time left</p>
+                    <p className="mt-1 text-3xl font-semibold tabular-nums">{clock}</p>
                   </div>
                   <button type="button" onClick={fastForward} className="mt-3 min-h-11 text-sm font-medium text-blue underline underline-offset-4">
                     Skip to the end of this voucher

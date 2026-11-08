@@ -69,9 +69,9 @@ export default function HowItWorksPage() {
 
       <section aria-labelledby="options-title">
         <div className="container-page py-20 lg:py-28">
-          <p className="font-semibold text-blue">Ways to pay</p>
+          <p className="font-semibold text-blue">Packages</p>
           <h2 id="options-title" className={`${heading} mt-4 max-w-3xl`}>
-            By time or by data. <span className="text-muted">Your choice.</span>
+            From 3 hours to 30 days. <span className="text-muted">Your choice.</span>
           </h2>
           <ul className="mt-12 grid gap-4 md:grid-cols-3">
             {hotspot.options.map((option, index) => {

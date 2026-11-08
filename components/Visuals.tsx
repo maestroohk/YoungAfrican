@@ -1,5 +1,6 @@
 import { Check, Gift, Wifi } from "lucide-react";
 import { Mark } from "@/components/Header";
+import { ugx } from "@/content/site";
 
 export function HeroPhone({ className }: { className: string }) {
   return (
@@ -15,7 +16,7 @@ export function HeroPhone({ className }: { className: string }) {
           <Check className="size-5" strokeWidth={2.5} />
         </span>
         <p className="mt-4 text-lg font-semibold">You are online</p>
-        <p className="text-xs text-muted">Daily pass · YA-DEMO-24</p>
+        <p className="text-xs text-muted">24 hours · YA-DEMO-24</p>
         <div className="mt-5 rounded-2xl bg-paper p-3">
           <p className="text-[0.65rem] text-muted">Time left</p>
           <p className="text-2xl font-semibold tabular-nums">23:41:08</p>
@@ -23,7 +24,7 @@ export function HeroPhone({ className }: { className: string }) {
             <div className="h-full w-[98%] rounded-full bg-blue" />
           </div>
         </div>
-        <p className="mt-auto rounded-xl bg-mango/30 px-3 py-2 text-[0.65rem] text-mango-ink">Demo screen. Prices will be announced before launch.</p>
+        <p className="mt-auto rounded-xl bg-mango/30 px-3 py-2 text-[0.65rem] text-mango-ink">Demo screen. 24 hours costs UGX 1,000.</p>
       </div>
     </div>
   );
@@ -34,13 +35,17 @@ export function HeroPackages({ className }: { className: string }) {
     <div aria-hidden className={`w-72 rounded-3xl bg-white p-4 text-ink shadow-[0_40px_70px_-30px_rgba(5,8,30,0.7)] ${className}`}>
       <div className="flex items-center justify-between text-xs">
         <span className="font-semibold">Choose a package</span>
-        <span className="rounded-full bg-mango px-2 py-0.5 font-medium text-mango-ink">Coming soon</span>
+        <span className="rounded-full bg-mango px-2 py-0.5 font-medium text-mango-ink">From UGX 500</span>
       </div>
       <ul className="mt-3 space-y-2">
-        {["Daily pass", "Weekly package", "Monthly subscription"].map((name, index) => (
-          <li key={name} className={`flex items-center justify-between rounded-2xl px-3 py-2.5 text-sm ${index === 1 ? "bg-blue text-white" : "bg-paper"}`}>
+        {[
+          ["24 hours", 1000],
+          ["7 days", 5000],
+          ["30 days", 25000],
+        ].map(([name, price], index) => (
+          <li key={name} className={`flex items-center justify-between rounded-2xl px-3 py-2.5 text-sm ${index === 0 ? "bg-blue text-white" : "bg-paper"}`}>
             <span className="font-semibold">{name}</span>
-            <span className={`text-xs ${index === 1 ? "text-white/80" : "text-muted"}`}>Price to be announced</span>
+            <span className="font-semibold tabular-nums">{ugx(Number(price))}</span>
           </li>
         ))}
       </ul>

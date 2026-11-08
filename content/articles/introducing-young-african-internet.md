@@ -30,7 +30,7 @@ Community Wi-Fi hotspots are a practical way to start. One good connection, shar
 
 ## Where things stand
 
-We are preparing our first service areas. That means no packages are on sale yet, and no prices have been published. When an area goes live, we will list it on the coverage page and publish the packages available there. Until then, we will not suggest that service is available anywhere it is not.
+We are preparing our first service areas. Our packages and prices are now published: from UGX 500 for 3 hours and UGX 1,000 for 24 hours, up to UGX 25,000 for 30 days or UGX 45,000 for 30 days on three devices at once. When an area goes live, we will list it on the coverage page. Until then, we will not suggest that service is available anywhere it is not.
 
 ## How you can help
 
