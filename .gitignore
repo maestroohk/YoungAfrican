@@ -46,3 +46,6 @@ next-env.d.ts
 
 # local editor tooling
 /.claude
+
+# local enquiries (personal data)
+/.enquiries/

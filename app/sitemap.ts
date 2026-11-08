@@ -3,7 +3,7 @@ import { site } from "@/content/site";
 import { getInsights } from "@/lib/insights";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const pages = ["", "/about", "/crypto-markets", "/internet-solutions", "/insights", "/contact"].map((path) => ({
+  const pages = ["", "/connectivity", "/academy", "/insights", "/about", "/contact", "/privacy"].map((path) => ({
     url: `${site.url}${path}`,
     changeFrequency: "monthly" as const,
     priority: path === "" ? 1 : 0.8,
