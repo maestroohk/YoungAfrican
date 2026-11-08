@@ -1,20 +1,23 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { Mail } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
 import { PageHero } from "@/components/ui";
 import { enquiryServices, site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `Contact ${site.name} about community Wi-Fi availability, hosting a hotspot, the Markets Academy or a partnership.`,
+  description: `Contact ${site.name} about coverage, internet packages, support, customer rewards or a partnership.`,
   alternates: { canonical: "/contact" },
 };
 
 async function FormWithService({ searchParams }: { searchParams: PageProps<"/contact">["searchParams"] }) {
-  const { service } = await searchParams;
+  const { service, area } = await searchParams;
   const requested = typeof service === "string" ? service : "";
   const initialService = enquiryServices.some((item) => item.value === requested) ? requested : "";
-  return <ContactForm key={initialService} initialService={initialService} />;
+  const place = typeof area === "string" ? area.trim().slice(0, 120) : "";
+  const initialMessage = place ? `I would like to know whether Young African Internet covers ${place}.` : "";
+  return <ContactForm key={initialService + place} initialService={initialService} initialMessage={initialMessage} />;
 }
 
 export default function ContactPage({ searchParams }: PageProps<"/contact">) {
@@ -28,7 +31,7 @@ export default function ContactPage({ searchParams }: PageProps<"/contact">) {
             Tell us what <span className="text-mango">you need.</span>
           </>
         }
-        intro="Ask about Wi-Fi near you, hosting a hotspot, the Markets Academy or a partnership. We read every enquiry and reply by email."
+        intro="Ask about coverage in your area, internet packages, help with your connection, customer rewards or a partnership. We read every enquiry and reply by email."
       />
 
       <section className="py-12 sm:py-16">
@@ -58,11 +61,12 @@ export default function ContactPage({ searchParams }: PageProps<"/contact">) {
               </ol>
             </div>
             <div className="rounded-[2rem] bg-white p-6">
-              <h2 className="text-lg font-semibold">Direct contact</h2>
-              <p className="mt-2 leading-relaxed text-muted">
-                A business email address and phone line will be published once the company&apos;s registration is complete. For now, the
-                form is the best way to reach {site.name}.
-              </p>
+              <h2 className="text-lg font-semibold">Email us</h2>
+              <a href={`mailto:${site.contact.email}`} className="mt-2 inline-flex min-h-11 items-center gap-2 font-semibold break-all text-blue underline underline-offset-4">
+                <Mail aria-hidden className="size-4 shrink-0" />
+                {site.contact.email}
+              </a>
+              <p className="mt-2 leading-relaxed text-muted">A phone and WhatsApp support line will be published once confirmed.</p>
             </div>
             <p className="rounded-[2rem] bg-coral/10 p-6 text-sm leading-relaxed">
               Never send passwords, PINs, private keys or recovery phrases. We will never ask for them.

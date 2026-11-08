@@ -18,8 +18,8 @@ const fieldOrder: EnquiryField[] = ["name", "email", "phone", "organisation", "s
 const inputClass =
   "block min-h-12 w-full rounded-2xl border bg-paper px-4 py-3 text-base text-ink transition-colors placeholder:text-muted/80 focus:border-blue focus:bg-white focus:outline-none focus-visible:outline-none focus:ring-4 focus:ring-blue/15";
 
-export function ContactForm({ initialService = "" }: { initialService?: string }) {
-  const [values, setValues] = useState<EnquiryInput>({ ...emptyEnquiry, service: initialService });
+export function ContactForm({ initialService = "", initialMessage = "" }: { initialService?: string; initialMessage?: string }) {
+  const [values, setValues] = useState<EnquiryInput>({ ...emptyEnquiry, service: initialService, message: initialMessage });
   const [errors, setErrors] = useState<FieldErrors>({});
   const [result, setResult] = useState<EnquiryResult>({ status: "idle" });
   const [pending, startTransition] = useTransition();
@@ -151,7 +151,7 @@ export function ContactForm({ initialService = "" }: { initialService?: string }
             type="tel"
             inputMode="tel"
             autoComplete="tel"
-            placeholder="+256"
+            placeholder="+256 or your country code"
             value={values.phone}
             onChange={update("phone")}
             maxLength={20}
@@ -205,7 +205,7 @@ export function ContactForm({ initialService = "" }: { initialService?: string }
             value={values.message}
             onChange={update("message")}
             maxLength={3000}
-            placeholder="Tell us about your situation, location and what you would like to achieve."
+            placeholder="Tell us your location and what you need. For connection problems, describe what happens and when it started."
             {...fieldA11y("message", errors.message)}
             className={`${inputClass} ${borderFor(errors.message)} resize-y`}
           />

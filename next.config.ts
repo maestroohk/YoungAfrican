@@ -11,8 +11,10 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      { source: "/internet-solutions", destination: "/connectivity", permanent: true },
-      { source: "/crypto-markets", destination: "/academy", permanent: true },
+      { source: "/connectivity", destination: "/how-it-works", permanent: true },
+      { source: "/internet-solutions", destination: "/how-it-works", permanent: true },
+      { source: "/academy", destination: "/", permanent: true },
+      { source: "/crypto-markets", destination: "/", permanent: true },
     ];
   },
   turbopack: {

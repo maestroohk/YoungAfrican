@@ -1,55 +1,29 @@
 export const site = {
-  name: "YoungAfrican",
+  name: "Young African Internet",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  tagline: "Community Wi-Fi and markets education",
+  tagline: "Connecting Communities. Empowering Generations.",
   description:
-    "YoungAfrican is an African-founded company in formation, building pay-as-you-go community Wi-Fi in Uganda and an online Markets Academy that teaches risk before reward.",
+    "Young African Internet is an African-founded connectivity initiative working to make internet access more affordable and dependable for communities in Uganda.",
   location: "Uganda",
-  status: "Company in formation",
+  status: "Preparing first service areas",
   contact: {
-    email: "",
-    phone: "",
-    whatsapp: "",
+    email: "younginvestorschoice8@gmail.com",
   },
-  social: [
-    { label: "LinkedIn", href: "" },
-    { label: "X", href: "" },
-    { label: "Instagram", href: "" },
-  ],
 };
 
 export const nav = [
-  { label: "Wi-Fi", href: "/connectivity" },
-  { label: "Markets Academy", href: "/academy" },
-  { label: "Insights", href: "/insights" },
+  { label: "Packages", href: "/packages" },
+  { label: "Coverage", href: "/coverage" },
+  { label: "How it works", href: "/how-it-works" },
+  { label: "Rewards", href: "/rewards" },
+  { label: "News", href: "/insights" },
   { label: "About", href: "/about" },
 ];
 
-export const pathways = [
-  {
-    name: "Foundations",
-    level: "For beginners",
-    modules: [
-      { title: "How markets work", text: "Exchanges, orders, prices and who is on the other side of a trade." },
-      { title: "Reading a price chart", text: "Candles, timeframes, trend, and what a chart cannot tell you.", preview: "chart" },
-      { title: "Risk and position sizing", text: "Deciding the loss first, then the size.", preview: "risk" },
-      { title: "Writing a trading plan", text: "Entry, invalidation, target and review, written down in advance." },
-      { title: "Fundamentals, plainly", text: "What moves prices: earnings, interest rates, news and supply." },
-      { title: "Scams and red flags", text: "Guaranteed returns, signal groups and fake platforms." },
-    ],
-  },
-  {
-    name: "Practitioner",
-    level: "For experienced learners",
-    modules: [
-      { title: "Market structure", text: "Multiple timeframes, ranges and breakouts." },
-      { title: "Volatility and stops", text: "Placing stops where the idea fails, not where it hurts." },
-      { title: "Portfolio risk", text: "Correlation, total exposure and drawdown limits." },
-      { title: "Research methods", text: "Reading reports and economic data critically." },
-      { title: "Testing a strategy", text: "Back-testing, journaling and the limits of both." },
-      { title: "Trading psychology", text: "Process over outcome, and knowing when to stop." },
-    ],
-  },
+export const footerNav = [
+  { title: "Internet", links: [["Packages", "/packages"], ["Coverage", "/coverage"], ["How it works", "/how-it-works"], ["Customer rewards", "/rewards"]] },
+  { title: "Help", links: [["Support centre", "/support"], ["Partner with us", "/partners"], ["Contact us", "/contact"]] },
+  { title: "Company", links: [["About us", "/about"], ["News and articles", "/insights"], ["Privacy", "/privacy"]] },
 ];
 
 export const usageGap = {
@@ -60,97 +34,124 @@ export const usageGap = {
 };
 
 export const legalNotice =
-  "YoungAfrican is a company in formation, being established in Uganda. Services that need registration or a licence will only be offered once it is in place. Nothing on this site is financial advice. Photographs are illustrative; the people shown are not customers or staff.";
+  "Young African Internet is committed to expanding access to affordable and dependable connectivity for communities in Uganda. Service availability, package terms and coverage depend on the location and the active service offering, and services are introduced only once the required approvals are in place. Photographs are illustrative; the people shown are not customers or staff.";
+
+export const statusNotice = "We are preparing our first service areas in Uganda. Packages, prices and coverage will be published here when they go live.";
 
 export const about = {
   intro:
-    "We are a small African-founded company in formation, being established in Uganda. We work on two things that widen opportunity: affordable Wi-Fi where people gather, and honest education about how financial markets work, online for learners anywhere.",
-  mission: "Make internet access more affordable, and market knowledge more honest, for the communities that need both.",
-  vision: "A Uganda where the place you live does not decide how much you can learn, build or take part in.",
-  pillars: [
-    {
-      title: "Knowledge",
-      text: "Plain explanations of how financial markets work, including the risks that are usually left out.",
-    },
-    {
-      title: "Opportunity",
-      text: "Research skills and habits that help people make their own decisions instead of following tips.",
-    },
-    {
-      title: "Access",
-      text: "Shared Wi-Fi hotspots that make getting online cheaper for people who cannot afford a home connection.",
-    },
-  ],
+    "Young African Internet was founded with a simple belief: internet access should be more affordable, dependable and accessible to the communities that need it. We are building a community-focused connectivity brand in Uganda, with an ambition to grow responsibly and serve more people over time.",
+  mission: "To expand access to affordable, dependable internet and help communities participate in education, communication, business and the digital economy.",
+  vision: "A connected Africa where people and businesses can access useful digital opportunities without connectivity being an unnecessary barrier.",
+  belief: "Connectivity is more than a signal. It is a bridge to learning, communication, work, trade, entertainment and opportunity.",
 };
 
-export const founder = {
-  headline: "Curiosity across disciplines. A commitment to making opportunity more accessible.",
-  role: "Founder",
-  story: [
-    "YoungAfrican’s founder is a practising pharmacist. Pharmacy rewards careful reading, attention to detail and responsibility towards the people who rely on your advice, and those habits carry over into everything else he does.",
-    "Alongside that work he taught himself to trade. The lasting value was not any single trade but the learning around it: studying how markets move, reading research critically and seeing how much risk people take on when they enter markets without guidance. That is why YoungAfrican’s market work is built on research and education rather than promises.",
-    "The same conviction shapes the connectivity work. Education and information only create opportunity when people can reach them, and in many rural and underserved communities the cost of getting online is still a barrier. Shared Wi-Fi hotspots are a practical way to bring that cost down.",
-    "What ties these interests together is continuous learning: the belief that curiosity, applied across disciplines and shared openly, makes opportunity more accessible. YoungAfrican is how he is putting that belief into practice.",
-  ],
-  interests: [
-    { label: "Healthcare", text: "Practising pharmacist" },
-    { label: "Markets", text: "Self-taught trader; market research" },
-    { label: "Education", text: "Responsible financial education" },
-    { label: "Connectivity", text: "Affordable internet for underserved communities" },
-  ],
-};
-
-export const values = [
-  { title: "Keep learning", text: "Markets, technology and communities change. We keep studying and share what we learn." },
-  { title: "Say what is true", text: "We describe markets and networks as they are, including the risks and the limits of what we offer." },
-  { title: "Process before speed", text: "Careful planning and risk management come first, in trading and in the networks we build." },
-  { title: "Design for access", text: "We plan around Ugandan realities: cost, power, distance and how people actually use the internet." },
+export const founders = [
+  {
+    name: "Mr Henry Kasozi",
+    role: "Co-founder",
+    text: "Helps lead the company's direction, growth and commitment to serving communities with accessible connectivity.",
+  },
+  {
+    name: "Mr Obadiah Incarnate",
+    role: "Co-founder",
+    text: "Helps shape the company's vision, development and ambition to build a trusted African connectivity brand.",
+  },
 ];
 
-export const crypto = {
-  services: [
-    {
-      title: "Market research",
-      text: "Structured research on crypto-assets and market conditions: liquidity, volatility, project fundamentals and the wider economic context.",
-    },
-    {
-      title: "Market analysis",
-      text: "Technical and on-chain perspectives presented clearly, with the assumptions and uncertainty stated rather than hidden.",
-    },
-    {
-      title: "Trading education",
-      text: "Practical sessions on how markets work, order types, position sizing, risk control, record keeping and avoiding scams.",
-    },
-    {
-      title: "Consultancy",
-      text: "Guidance for individuals and organisations exploring digital markets: the landscape, tools, security and process.",
-    },
-  ],
-  approach: [
-    {
-      title: "Capital preservation first",
-      text: "Every discussion starts with how much could be lost and whether that loss is affordable. Position size and exit levels are agreed before entry.",
-    },
-    {
-      title: "Written plans, not impulses",
-      text: "Trading from a written plan with defined entry, exit and invalidation criteria, reviewed against a journal.",
-    },
-    {
-      title: "Security and custody awareness",
-      text: "Wallet security, exchange risk, two-factor authentication and the warning signs of fraud.",
-    },
-    {
-      title: "No guarantees",
-      text: "Markets are uncertain. We never promise returns, and we will say so when the right decision is not to trade.",
-    },
-  ],
-  boundaries: [
-    "We do not hold, manage or pool client funds.",
-    "We do not promise or guarantee returns.",
-    "We do not trade on behalf of clients.",
-    "Regulated activity will only be offered once the right authorisation is in place.",
-  ],
-};
+export const values = [
+  { title: "Affordability", text: "Packages designed with everyday budgets in mind." },
+  { title: "Reliability", text: "A focus on stable coverage and continuous improvement of the network." },
+  { title: "Customer care", text: "A community-focused team that listens and responds." },
+  { title: "Transparency", text: "Clear package terms, honest coverage information and service updates." },
+  { title: "Community impact", text: "Connectivity that opens doors to learning, work and trade." },
+  { title: "Continuous improvement", text: "Better coverage, reliability and support as the network grows." },
+];
+
+export const products = [
+  {
+    title: "Cheap internet",
+    text: "Affordable internet options for everyday use, with the price, duration, allowance and renewal steps stated clearly for every package.",
+  },
+  {
+    title: "Quality standard network",
+    text: "A network built for dependable connectivity, with published coverage areas, support hours and notices about maintenance.",
+  },
+  {
+    title: "Gift cards for consistent clients",
+    text: "An appreciation programme planned to reward eligible loyal customers, with clear rules for who qualifies and how to redeem.",
+  },
+];
+
+export const packageFormats = [
+  { name: "Daily pass", text: "Short access for a day of browsing, study or calls.", bestFor: "Occasional use and visitors" },
+  { name: "Weekly package", text: "A week of access at a lower cost per day.", bestFor: "Students and regular users" },
+  { name: "Monthly subscription", text: "Ongoing access for people who are online every day.", bestFor: "Daily users and families" },
+  { name: "Home and business", text: "A connection for a household, shop or office.", bestFor: "Homes, shops and small offices" },
+];
+
+export const packageDetails = ["Price", "Duration", "Data allowance or fair-use terms", "Speed expectations", "Coverage area", "How to renew"];
+
+export const connectSteps = [
+  { title: "Check coverage", text: "Make sure Young African Internet is available in your area." },
+  { title: "Choose a package", text: "Pick an available package and read its price and usage terms." },
+  { title: "Pay or get a voucher", text: "Follow the published payment or voucher instructions." },
+  { title: "Connect", text: "Join the Young African Wi-Fi network, or arrange an installation." },
+  { title: "Get help if needed", text: "Contact support if activation or the connection does not work." },
+];
+
+export const reasons = [
+  { title: "Affordable options", text: "Packages designed with everyday budgets in mind." },
+  { title: "Network quality", text: "A focus on stable coverage and continuous improvement." },
+  { title: "Customer appreciation", text: "Rewards planned for eligible consistent customers." },
+  { title: "Local support", text: "A community-focused team that listens and responds." },
+  { title: "Clear information", text: "Transparent package terms and service updates." },
+];
+
+export const partnerTypes = [
+  { title: "Hotspot hosts", text: "Shops, cafés and community venues where people already gather." },
+  { title: "Landlords and estates", text: "Shared connectivity for tenants and residents." },
+  { title: "Schools and institutions", text: "Connectivity for schools, clinics and organisations." },
+  { title: "Resellers", text: "Wholesale or resale partnerships, subject to the required approvals and agreements." },
+];
+
+export const supportFaqs = [
+  {
+    q: "How do I connect?",
+    a: "Check coverage, choose an available package and follow the official voucher or payment instructions shown on this website.",
+  },
+  {
+    q: "Can I use my own phone?",
+    a: "Yes. If your phone supports Wi-Fi, you can connect to an available Young African Internet hotspot within its coverage area.",
+  },
+  {
+    q: "How do I know if my area is covered?",
+    a: "Use the coverage page to send your village, zone or nearest landmark, and we will tell you whether service is available or planned.",
+  },
+  {
+    q: "Do you reward loyal customers?",
+    a: "We plan to recognise eligible consistent customers through a gift-card appreciation programme. The eligibility and redemption terms will be published on the rewards page before it starts.",
+  },
+  {
+    q: "What if my internet stops working?",
+    a: "Check that Wi-Fi is on, reconnect to the correct network and confirm that your package is active. If it still does not work, contact support with your location and a short description of the problem.",
+  },
+  {
+    q: "Can my shop or institution host a hotspot?",
+    a: "Yes. Interested venues can contact us to discuss location suitability, equipment, responsibilities and partnership terms.",
+  },
+];
+
+export const enquiryServices = [
+  { value: "coverage", label: "Coverage in my area" },
+  { value: "packages", label: "Internet packages and prices" },
+  { value: "support", label: "Help with my connection" },
+  { value: "rewards", label: "Customer rewards and gift cards" },
+  { value: "hotspot-hosting", label: "Hosting a hotspot at my business or venue" },
+  { value: "institution", label: "Connectivity for a school, clinic or organisation" },
+  { value: "partnership", label: "Partnership or reseller enquiry" },
+  { value: "other", label: "Something else" },
+] as const;
 
 export const hotspot = {
   steps: [
@@ -214,17 +215,6 @@ export const hotspot = {
     },
   ],
 };
-
-export const enquiryServices = [
-  { value: "hotspot-availability", label: "Wi-Fi hotspot availability near me" },
-  { value: "hotspot-hosting", label: "Hosting a hotspot at my business or community space" },
-  { value: "hotspot-installation", label: "Hotspot installation for an organisation" },
-  { value: "hotspot-support", label: "Hotspot management and technical support" },
-  { value: "crypto-education", label: "Trading and market education" },
-  { value: "crypto-research", label: "Market research and analysis" },
-  { value: "partnership", label: "Partnership or investment enquiry" },
-  { value: "other", label: "Something else" },
-] as const;
 
 const unsplash = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=2000&q=80`;
 

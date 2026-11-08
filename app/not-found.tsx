@@ -25,7 +25,7 @@ export default function NotFound() {
               Back to home
             </ButtonLink>
             <ButtonLink href="/insights" tone="outline" arrow={false}>
-              Browse insights
+              Read the news
             </ButtonLink>
           </div>
         </section>

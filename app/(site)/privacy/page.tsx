@@ -4,7 +4,7 @@ import { PageHero } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Privacy",
-  description: "How YoungAfrican handles the personal information you send through the website.",
+  description: "How Young African Internet handles the personal information you send through the website.",
   alternates: { canonical: "/privacy" },
 };
 
@@ -19,7 +19,7 @@ const sections = [
   },
   {
     title: "Where it goes",
-    text: "Enquiries are delivered to YoungAfrican by email through an email delivery provider. Articles and site content are managed in Sanity, which does not receive your enquiry.",
+    text: "Enquiries are delivered to Young African Internet by email through an email delivery provider. Articles and site content are managed in Sanity, which does not receive your enquiry.",
   },
   {
     title: "How long we keep it",

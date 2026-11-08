@@ -8,7 +8,7 @@ import { schemaTypes } from "./sanity/schema";
 
 export default defineConfig({
   name: "youngafrican",
-  title: "YoungAfrican",
+  title: "Young African Internet",
   basePath: "/studio",
   projectId: isSanityConfigured ? projectId : "unconfigured",
   dataset,

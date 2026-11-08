@@ -17,7 +17,7 @@ type Photo = { src: string; alt: string };
 const steps = [
   {
     title: "Find the network",
-    phone: "Open Wi-Fi settings and choose the YoungAfrican network.",
+    phone: "Open Wi-Fi settings and choose the Young African Wi-Fi network.",
     behind: "An access point at the host's premises broadcasts an open network that anyone nearby can join.",
   },
   {
@@ -50,7 +50,7 @@ const statusFor = (step: number) => [
 ];
 
 const networks = [
-  { name: "YoungAfrican Wi-Fi", open: true, bars: 4 },
+  { name: "Young African Wi-Fi", open: true, bars: 4 },
   { name: "Shop_Guest", open: false, bars: 3 },
   { name: "Home-5G", open: false, bars: 2 },
 ];
@@ -195,7 +195,7 @@ function PeopleDemo() {
                       </li>
                     ))}
                   </ul>
-                  <p className="mt-auto text-sm text-muted">Tap the open YoungAfrican network.</p>
+                  <p className="mt-auto text-sm text-muted">Tap the open Young African Wi-Fi network.</p>
                 </>
               )}
 
@@ -204,7 +204,7 @@ function PeopleDemo() {
                   <span className="inline-flex size-11 items-center justify-center rounded-xl bg-blue text-white">
                     <Wifi aria-hidden className="size-5" />
                   </span>
-                  <p className="mt-5 text-xl leading-tight font-semibold">Welcome to YoungAfrican Wi-Fi</p>
+                  <p className="mt-5 text-xl leading-tight font-semibold">Welcome to Young African Wi-Fi</p>
                   <p className="mt-2 text-sm leading-relaxed text-muted">You are connected to the hotspot. Choose how you would like to browse.</p>
                   <button type="button" onClick={() => setStep(2)} className={`mt-auto ${button}`}>
                     See access options

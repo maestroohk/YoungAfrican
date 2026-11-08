@@ -6,9 +6,9 @@ import { InsightsGrid } from "@/components/InsightsGrid";
 import { getInsights, getInsightsSource } from "@/lib/insights";
 
 export const metadata: Metadata = {
-  title: "Insights",
+  title: "News and articles",
   description:
-    "Research and plain-language explainers from YoungAfrican on markets, community connectivity, technology and digital opportunity. Educational content, never financial advice.",
+    "News, service updates and practical guides from Young African Internet on getting online, staying safe and making the most of your connection.",
   alternates: { canonical: "/insights" },
 };
 
@@ -21,8 +21,8 @@ async function Feed() {
         <Newspaper aria-hidden className="size-8 text-blue" />
         <h2 className="mt-6 text-3xl font-semibold tracking-[-0.03em]">Our first articles are in editorial review.</h2>
         <p className="mt-3 max-w-xl text-lg leading-relaxed text-muted">
-          We are preparing articles on markets and risk, community connectivity, and practical technology. They will appear here once
-          they are approved and published.
+          We are preparing guides on getting connected, staying safe online and making your data go further. They will appear here
+          once they are approved and published.
         </p>
         <ButtonLink href="/contact?service=other" tone="ink" className="mt-8">
           Suggest a topic
@@ -48,13 +48,13 @@ export default function InsightsPage() {
     <>
       <PageHero
         tone="paper"
-        eyebrow="Insights"
+        eyebrow="News and articles"
         title={
           <>
-            Research, <span className="font-serif font-normal tracking-[-0.02em] italic">made readable.</span>
+            Updates and <span className="font-serif font-normal tracking-[-0.02em] italic">practical guides.</span>
           </>
         }
-        intro="Markets and money, community connectivity, and technology, explained plainly with sources linked. Nothing here is financial advice."
+        intro="New coverage, service updates and plain-language guides to getting online, staying safe and making your data go further."
       />
       <section aria-label="Articles" className="pb-20 lg:pb-28">
         <div className="container-page">

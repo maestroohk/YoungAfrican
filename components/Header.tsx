@@ -21,7 +21,7 @@ export function Logo({ inverse = false }: { inverse?: boolean }) {
   return (
     <span className="inline-flex items-center gap-2.5 text-[1.08rem] font-semibold tracking-[-0.02em]">
       <Mark inverse={inverse} />
-      YoungAfrican
+      Young African Internet
     </span>
   );
 }
@@ -29,8 +29,8 @@ export function Logo({ inverse = false }: { inverse?: boolean }) {
 const tones: Record<string, string> = {
   "/": "on-dark border-white/15 bg-blue text-white",
   "/contact": "on-dark border-white/15 bg-blue text-white",
-  "/connectivity": "on-dark border-white/10 bg-night text-white",
-  "/academy": "border-mango-ink/10 bg-mango text-mango-ink",
+  "/how-it-works": "on-dark border-white/10 bg-night text-white",
+  "/rewards": "border-mango-ink/10 bg-mango text-mango-ink",
 };
 
 export function Header() {
@@ -66,7 +66,7 @@ export function Header() {
 
   const tone = tones[pathname];
   const light = scrolled || open || !tone;
-  const onColour = !light && tone !== tones["/academy"];
+  const onColour = !light && tone !== tones["/rewards"];
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
@@ -79,10 +79,10 @@ export function Header() {
         Skip to content
       </a>
       <div className="container-page flex h-16 items-center justify-between gap-6">
-        <Link href="/" aria-label="YoungAfrican home" className="flex min-h-11 items-center">
+        <Link href="/" aria-label="Young African Internet home" className="flex min-h-11 items-center">
           <Logo inverse={onColour} />
         </Link>
-        <nav aria-label="Main" className="hidden lg:block">
+        <nav aria-label="Main" className="hidden xl:block">
           <ul className="flex gap-1 text-[0.95rem]">
             {nav.map((item) => (
               <li key={item.href}>
@@ -101,12 +101,12 @@ export function Header() {
         </nav>
         <div className="flex items-center gap-2">
           <Link
-            href="/contact"
+            href="/coverage"
             className={`hidden min-h-10 items-center rounded-full px-5 text-sm font-semibold transition-colors sm:inline-flex ${
               light ? "bg-ink text-white hover:bg-blue" : onColour ? "bg-white text-blue-deep hover:bg-mango hover:text-mango-ink" : "bg-mango-ink text-white hover:bg-ink"
             }`}
           >
-            Get in touch
+            Check coverage
           </Link>
           <button
             id="menu-button"
@@ -114,7 +114,7 @@ export function Header() {
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            className={`inline-flex size-11 items-center justify-center rounded-full border lg:hidden ${light ? "border-line" : "border-current/30"}`}
+            className={`inline-flex size-11 items-center justify-center rounded-full border xl:hidden ${light ? "border-line" : "border-current/30"}`}
           >
             {open ? <X aria-hidden className="size-5" /> : <Menu aria-hidden className="size-5" />}
             <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
@@ -122,9 +122,9 @@ export function Header() {
         </div>
       </div>
       {open && (
-        <nav id="mobile-menu" aria-label="Main" className="border-t border-line lg:hidden">
+        <nav id="mobile-menu" aria-label="Main" className="border-t border-line xl:hidden">
           <ul className="container-page py-3">
-            {[...nav, { label: "Get in touch", href: "/contact" }].map((item) => (
+            {[...nav, { label: "Support", href: "/support" }, { label: "Contact us", href: "/contact" }].map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}

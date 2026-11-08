@@ -1,14 +1,14 @@
-# YoungAfrican website
+# Young African Internet website
 
-Website for YoungAfrican, an African-founded company in formation, being established in Uganda. It is building pay-as-you-go community Wi-Fi hotspots and an online Markets Academy that teaches risk before reward.
+Website for Young African Internet, an African-founded connectivity initiative making internet access more affordable and dependable for communities in Uganda. Tagline: Connecting Communities. Empowering Generations.
 
 Built with Next.js 16 (App Router, Cache Components), React 19, TypeScript, Tailwind CSS 4, Lucide icons and Sanity CMS.
 
 ## Design system
 
-- Colours (tokens in `app/globals.css`): signal blue for the brand and Wi-Fi, night for the Wi-Fi product world, mango for the Markets Academy, coral for risk and stops, all on warm paper.
+- Colours (tokens in `app/globals.css`): signal blue for the brand, night navy for product sections, mango gold for highlights and rewards, coral for small accents, all on warm paper.
 - Type: Schibsted Grotesk for interface and headings, Newsreader for article text and editorial accents.
-- Components: pill buttons and page heroes in `components/ui.tsx`; the Wi-Fi walkthrough, lesson previews and hero mock-ups are shared between the homepage and the section pages.
+- Components: pill buttons and page heroes in `components/ui.tsx`; the Wi-Fi walkthrough, coverage form and hero mock-ups are shared between the homepage and the section pages.
 
 ## Requirements
 
@@ -38,12 +38,12 @@ Open http://localhost:3000. The content studio is at http://localhost:3000/studi
 ## Project structure
 
 ```
-app/(site)/           Public pages: home, /connectivity, /academy, /insights, /about, /contact, /privacy
+app/(site)/           Public pages: home, /packages, /coverage, /how-it-works, /rewards, /support, /partners, /insights, /about, /contact, /privacy
 app/studio/           Embedded Sanity Studio at /studio
 app/api/draft-mode/   Enables and disables draft previews
 app/api/revalidate/   Optional webhook endpoint for instant cache refresh
-components/           Header, footer, shared UI, Wi-Fi walkthrough, lessons, Insights grid, contact form
-content/site.ts       Company copy, founder story defaults, services, photography
+components/           Header, footer, shared UI, Wi-Fi walkthrough, coverage form, Insights grid, contact form
+content/site.ts       Company copy, founders, packages, FAQs, enquiry topics, status notice, photography
 content/insights-seed.ts  The original four articles, used for migration and local fallback
 content/articles/     Researched AI articles in Markdown, imported into Sanity as drafts
 lib/insights.ts       Article queries and data shaping
@@ -68,7 +68,7 @@ Only published articles whose publication date has passed are shown publicly. Dr
 
 ### About page
 
-**About page** in Studio controls the introduction, mission, vision, values, founder headline, optional founder name and role, founder story and founder portrait. Any field left empty falls back to the text in `content/site.ts`, so the page always works. The portrait has an **illustrative image** switch, which is on until a real photograph of the founder is uploaded.
+**About page** in Studio controls the introduction, mission, vision, values and the founders list (name, role, short biography and photograph). Any field left empty falls back to the text in `content/site.ts`, so the page always works. Add founder photographs and biographies only after each founder has approved them.
 
 ### Environment variables
 
@@ -96,7 +96,7 @@ Without a Sanity project ID, the Insights pages show the bundled seed articles i
 
 `npm run migrate:insights` creates the four original articles and the Markdown articles in `content/articles/` as **unpublished drafts**, together with their topics (Artificial Intelligence, Digital Markets, Community Connectivity, Company updates) and authors. It skips any article whose ID or slug already exists and only re-aligns its topic, so it is safe to run more than once. Add `-- --dry-run` to see what would be written. Articles deliberately have no publication date: an editor sets one when publishing.
 
-To add another Markdown article, copy the front matter of an existing file in `content/articles/`, write the body using headings, lists, links, bold and italics, and run the import again.
+To add another Markdown article, copy the front matter of an existing file in `content/articles/`, set `category` (for example `connectivity` or `company-updates`) and `author` (for example `young-african-internet`), write the body using headings, lists, links, bold and italics, and run the import again.
 
 ### Caching, preview and not-found pages
 

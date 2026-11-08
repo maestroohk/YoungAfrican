@@ -222,8 +222,8 @@ const aboutPage = defineType({
   title: "About page",
   type: "document",
   groups: [
-    { name: "founder", title: "Founder", default: true },
-    { name: "company", title: "Company" },
+    { name: "company", title: "Company", default: true },
+    { name: "founders", title: "Founders" },
   ],
   fields: [
     defineField({
@@ -252,30 +252,28 @@ const aboutPage = defineType({
       ],
       validation: (rule) => rule.max(6),
     }),
-    defineField({ name: "founderHeadline", title: "Founder headline", type: "string", group: "founder" }),
     defineField({
-      name: "founderName",
-      title: "Founder name",
-      type: "string",
-      group: "founder",
-      description: "Optional. Leave empty to keep the founder unnamed on the website.",
-    }),
-    defineField({ name: "founderRole", title: "Founder role", type: "string", group: "founder" }),
-    defineField({ name: "founderStory", title: "Founder story", type: "blockContent", group: "founder" }),
-    defineField({
-      name: "founderPortrait",
-      title: "Founder portrait",
-      type: "image",
-      group: "founder",
-      options: { hotspot: true },
-      fields: [
-        defineField({ name: "alt", title: "Alternative text", type: "string", validation: (rule) => rule.required() }),
-        defineField({
-          name: "illustrative",
-          title: "Label as an illustrative image",
-          type: "boolean",
-          description: "Turn this off once the portrait is a real photograph of the founder.",
-          initialValue: true,
+      name: "founders",
+      title: "Founders",
+      type: "array",
+      group: "founders",
+      description: "Leave empty to use the default names and descriptions. Add photographs and biographies only after each founder has approved them.",
+      of: [
+        defineArrayMember({
+          type: "object",
+          fields: [
+            defineField({ name: "name", title: "Name", type: "string", validation: (rule) => rule.required() }),
+            defineField({ name: "role", title: "Role", type: "string" }),
+            defineField({ name: "bio", title: "Short biography", type: "text", rows: 3 }),
+            defineField({
+              name: "photo",
+              title: "Photograph",
+              type: "image",
+              options: { hotspot: true },
+              fields: [defineField({ name: "alt", title: "Alternative text", type: "string", validation: (rule) => rule.required() })],
+            }),
+          ],
+          preview: { select: { title: "name", subtitle: "role", media: "photo" } },
         }),
       ],
     }),

@@ -27,9 +27,9 @@ export default function OpengraphImage() {
         </div>
         <div style={{ display: "flex", flexDirection: "column", fontSize: 104, fontWeight: 700, lineHeight: 0.95, letterSpacing: -4 }}>
           <div>Get connected.</div>
-          <div style={{ color: "#ffc24d" }}>Get confident.</div>
+          <div style={{ color: "#ffc24d" }}>Stay connected.</div>
         </div>
-        <div style={{ display: "flex", fontSize: 28, color: "rgba(255,255,255,0.85)" }}>Community Wi-Fi in Uganda · Markets Academy online</div>
+        <div style={{ display: "flex", fontSize: 28, color: "rgba(255,255,255,0.85)" }}>Connecting Communities. Empowering Generations.</div>
       </div>
     ),
     size,
