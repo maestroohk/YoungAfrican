@@ -46,7 +46,7 @@ export default function HomePage() {
         <div className="container-page grid gap-8 pt-10 sm:pt-14 lg:grid-cols-[1.1fr_1fr] lg:gap-4 lg:pt-16">
           <div className="lg:pb-24">
             <Eyebrow className="bg-white/15 text-xs sm:text-sm">{site.tagline}</Eyebrow>
-            <h1 className="mt-6 text-[3.1rem] leading-[0.95] font-semibold tracking-[-0.055em] xs:text-[3.4rem] sm:text-[5rem] lg:text-[4.9rem]">
+            <h1 className="mt-6 text-[3.1rem] leading-[0.95] font-semibold tracking-[-0.055em] xs:text-[3.4rem] sm:text-[5rem] lg:text-[clamp(3.4rem,5.3vw,4.9rem)]">
               <span className="block">Get connected.</span>
               <span className="block text-mango">Stay connected.</span>
             </h1>
