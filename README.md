@@ -43,7 +43,7 @@ app/studio/           Embedded Sanity Studio at /studio
 app/api/draft-mode/   Enables and disables draft previews
 app/api/revalidate/   Optional webhook endpoint for instant cache refresh
 components/           Header, footer, shared UI, Wi-Fi walkthrough, coverage form, Insights grid, contact form
-content/site.ts       Company copy, founders, packages, FAQs, enquiry topics, status notice, photography
+content/site.ts       Company copy, story, packages and prices, FAQs, enquiry topics, status notice, photography
 content/insights-seed.ts  The original four articles, used for migration and local fallback
 content/articles/     Researched AI articles in Markdown, imported into Sanity as drafts
 lib/insights.ts       Article queries and data shaping
@@ -68,7 +68,7 @@ Only published articles whose publication date has passed are shown publicly. Dr
 
 ### About page
 
-**About page** in Studio controls the introduction, mission, vision, values and the founders list (name, role, short biography and photograph). Any field left empty falls back to the text in `content/site.ts`, so the page always works. Add founder photographs and biographies only after each founder has approved them.
+**About page** in Studio controls the introduction, mission, vision and values. Any field left empty falls back to the text in `content/site.ts`, so the page always works. The "Why Young African Internet" story and the reasons to believe live in `content/site.ts`.
 
 ### Environment variables
 

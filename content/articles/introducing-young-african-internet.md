@@ -14,7 +14,7 @@ Young African Internet was founded with a simple belief: internet access should 
 
 ## Who we are
 
-Young African Internet is an African-founded connectivity initiative being established in Uganda. The company is founded by Mr Henry Kasozi and Mr Obadiah Incarnate, who share an interest in using technology and connectivity to create practical opportunities for people, families and businesses.
+Young African Internet is an African-founded connectivity initiative being established in Uganda. We are a small team that believes in using technology and connectivity to create practical opportunities for people, families and businesses.
 
 Our mission is to expand access to affordable, dependable internet and help communities take part in education, communication, business and the digital economy. Our tagline says the same thing in four words: Connecting Communities. Empowering Generations.
 

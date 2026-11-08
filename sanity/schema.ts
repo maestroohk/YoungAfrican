@@ -221,26 +221,20 @@ const aboutPage = defineType({
   name: "aboutPage",
   title: "About page",
   type: "document",
-  groups: [
-    { name: "company", title: "Company", default: true },
-    { name: "founders", title: "Founders" },
-  ],
   fields: [
     defineField({
       name: "intro",
       title: "Introduction",
       type: "text",
       rows: 3,
-      group: "company",
       description: "Shown under the page title. Leave empty to use the default text.",
     }),
-    defineField({ name: "mission", title: "Mission", type: "text", rows: 3, group: "company" }),
-    defineField({ name: "vision", title: "Vision", type: "text", rows: 3, group: "company" }),
+    defineField({ name: "mission", title: "Mission", type: "text", rows: 3 }),
+    defineField({ name: "vision", title: "Vision", type: "text", rows: 3 }),
     defineField({
       name: "values",
       title: "Values",
       type: "array",
-      group: "company",
       of: [
         defineArrayMember({
           type: "object",
@@ -251,31 +245,6 @@ const aboutPage = defineType({
         }),
       ],
       validation: (rule) => rule.max(6),
-    }),
-    defineField({
-      name: "founders",
-      title: "Founders",
-      type: "array",
-      group: "founders",
-      description: "Leave empty to use the default names and descriptions. Add photographs and biographies only after each founder has approved them.",
-      of: [
-        defineArrayMember({
-          type: "object",
-          fields: [
-            defineField({ name: "name", title: "Name", type: "string", validation: (rule) => rule.required() }),
-            defineField({ name: "role", title: "Role", type: "string" }),
-            defineField({ name: "bio", title: "Short biography", type: "text", rows: 3 }),
-            defineField({
-              name: "photo",
-              title: "Photograph",
-              type: "image",
-              options: { hotspot: true },
-              fields: [defineField({ name: "alt", title: "Alternative text", type: "string", validation: (rule) => rule.required() })],
-            }),
-          ],
-          preview: { select: { title: "name", subtitle: "role", media: "photo" } },
-        }),
-      ],
     }),
   ],
   preview: { prepare: () => ({ title: "About page" }) },

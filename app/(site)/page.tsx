@@ -7,7 +7,7 @@ import { HeroPackages, HeroPhone } from "@/components/Visuals";
 import { Walkthrough } from "@/components/Walkthrough";
 import { InsightsGrid } from "@/components/InsightsGrid";
 import { CoverageForm } from "@/components/CoverageForm";
-import { connectSteps, founders, partnerTypes, photos, products, reasons, site, usageGap } from "@/content/site";
+import { connectSteps, partnerTypes, photos, products, promises, reasons, site, story, usageGap } from "@/content/site";
 import { getInsights } from "@/lib/insights";
 
 const reasonIcons = [Wallet, Signal, Gift, Headphones, Info];
@@ -236,33 +236,38 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section aria-labelledby="founders-title">
-        <div className="container-page py-20 lg:py-28">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <p className="font-semibold text-blue">Who we are</p>
-              <h2 id="founders-title" className={`${heading} mt-4 max-w-3xl`}>
-                African-founded. <span className="text-muted">Community focused.</span>
-              </h2>
+      <section aria-labelledby="story-title">
+        <div className="container-page grid gap-12 py-20 lg:grid-cols-2 lg:py-28">
+          <div>
+            <p className="font-semibold text-blue">{story.title}</p>
+            <h2 id="story-title" className={`${heading} mt-4`}>
+              Internet people can afford, <span className="text-muted">every day.</span>
+            </h2>
+            <div className="mt-6 space-y-4 text-lg leading-relaxed text-muted">
+              {story.paragraphs.map((paragraph) => (
+                <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+              ))}
             </div>
-            <ButtonLink href="/about" tone="ink">
+            <ButtonLink href="/about" tone="ink" className="mt-8">
               About us
             </ButtonLink>
           </div>
-          <ul className="mt-12 grid gap-4 md:grid-cols-2">
-            {founders.map((founder) => (
-              <li key={founder.name} className="flex gap-5 rounded-[2rem] bg-white p-6 sm:p-8">
-                <span aria-hidden className="flex size-14 shrink-0 items-center justify-center rounded-full bg-blue text-lg font-semibold text-white">
-                  {founder.name.replace("Mr ", "").split(" ").map((part) => part[0]).join("")}
-                </span>
-                <span>
-                  <span className="block text-xl font-semibold tracking-[-0.02em]">{founder.name}</span>
-                  <span className="block text-sm font-medium text-blue">{founder.role}</span>
-                  <span className="mt-2 block leading-relaxed text-muted">{founder.text}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
+          <div className="on-dark rounded-[2rem] bg-night p-6 text-white sm:p-10">
+            <h3 className="text-2xl font-semibold tracking-[-0.03em]">Reasons to believe in us</h3>
+            <ul className="mt-6 space-y-5">
+              {promises.map((promise) => (
+                <li key={promise.title} className="flex gap-4">
+                  <span className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full bg-mango text-mango-ink">
+                    <Check aria-hidden className="size-4" strokeWidth={3} />
+                  </span>
+                  <span>
+                    <span className="block font-semibold">{promise.title}</span>
+                    <span className="mt-0.5 block leading-relaxed text-white/70">{promise.text}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 

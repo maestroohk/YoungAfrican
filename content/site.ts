@@ -46,17 +46,20 @@ export const about = {
   belief: "Connectivity is more than a signal. It is a bridge to learning, communication, work, trade, entertainment and opportunity.",
 };
 
-export const founders = [
-  {
-    name: "Mr Henry Kasozi",
-    role: "Co-founder",
-    text: "Helps lead the company's direction, growth and commitment to serving communities with accessible connectivity.",
-  },
-  {
-    name: "Mr Obadiah Incarnate",
-    role: "Co-founder",
-    text: "Helps shape the company's vision, development and ambition to build a trusted African connectivity brand.",
-  },
+export const story = {
+  title: "Why Young African Internet",
+  paragraphs: [
+    "Across Uganda, many people already live within reach of a mobile signal and still struggle to stay online. For most, it is the cost of data, not the signal, that keeps them offline, and when a bundle runs out, so does access to school work, business messages, news and family.",
+    "Young African Internet started from a simple idea: one good connection, shared well, can bring the cost of getting online down for everyone nearby. So we are building community Wi-Fi that people can afford every day, priced from a few hours to a whole month, sold close to home and supported by people who answer.",
+  ],
+};
+
+export const promises = [
+  { title: "Prices you can see", text: "Every package and price is published before you pay. No hidden charges, no contract." },
+  { title: "Pay only for what you need", text: "From UGX 500 for 3 hours to UGX 25,000 for 30 days, on your own phone." },
+  { title: "Honest about coverage", text: "We only list areas where service is live, and we tell you what is planned near you." },
+  { title: "Thanks for staying", text: "A gift-card programme is planned to reward customers who stay with us." },
+  { title: "People who answer", text: "Every message to our team is read and answered by a person." },
 ];
 
 export const values = [
