@@ -1,8 +1,14 @@
 # YoungAfrican website
 
-Corporate website for YoungAfrican, a Ugandan technology company in formation that connects knowledge, opportunity and access through responsible market education and affordable internet connectivity.
+Website for YoungAfrican, a Ugandan technology company in formation building affordable community Wi-Fi hotspots and offering honest market research and financial education.
 
-Built with Next.js 16 (App Router, Cache Components), React 19, TypeScript, Tailwind CSS 4, Lucide icons, Motion and Sanity CMS.
+Built with Next.js 16 (App Router, Cache Components), React 19, TypeScript, Tailwind CSS 4, Lucide icons and Sanity CMS.
+
+## Design system
+
+- Colours (defined in `app/globals.css`): warm ivory and paper backgrounds, deep ink text, cobalt for primary actions and key panels, copper for small markers only.
+- Type: Newsreader (editorial serif with optical sizing) for headings and article text, Schibsted Grotesk for interface and body text.
+- Layout: a 12-column grid with section labels in the first three columns, hairline rules instead of cards, rectangular buttons and documentary photography with captions.
 
 ## Requirements
 
@@ -38,7 +44,8 @@ app/api/draft-mode/   Enables and disables draft previews
 app/api/revalidate/   Optional webhook endpoint for instant cache refresh
 components/           Header, footer, shared UI, article rendering, contact form
 content/site.ts       Company copy, founder story defaults, services, photography
-content/insights-seed.ts  The original articles, used for migration and local fallback
+content/insights-seed.ts  The original four articles, used for migration and local fallback
+content/articles/     Researched AI articles in Markdown, imported into Sanity as drafts
 lib/insights.ts       Article queries and data shaping
 lib/enquiry.ts        Enquiry validation shared by the form and the server
 sanity/               Sanity environment, client, image helper and schemas
@@ -85,9 +92,15 @@ Without a Sanity project ID, the Insights pages show the bundled seed articles i
 2. Set the environment variables above in the hosting provider.
 3. Optionally add a Sanity webhook (**API → Webhooks**) that sends a POST to `https://<domain>/api/revalidate` on create, update and delete, using `SANITY_REVALIDATE_SECRET` as the secret. Without it, changes still appear within about a minute.
 
-### Migrating the original articles
+### Importing articles
 
-`npm run migrate:insights` creates the four original articles as **unpublished drafts**, plus their categories and authors. It skips any article whose ID or slug already exists, so it is safe to run more than once. Add `-- --dry-run` to print the documents without writing. The articles deliberately have no publication date: an editor sets one when publishing.
+`npm run migrate:insights` creates the four original articles and the Markdown articles in `content/articles/` as **unpublished drafts**, together with their topics (Artificial Intelligence, Digital Markets, Community Connectivity, Company updates) and authors. It skips any article whose ID or slug already exists and only re-aligns its topic, so it is safe to run more than once. Add `-- --dry-run` to see what would be written. Articles deliberately have no publication date: an editor sets one when publishing.
+
+To add another Markdown article, copy the front matter of an existing file in `content/articles/`, write the body using headings, lists, links, bold and italics, and run the import again.
+
+### Caching, preview and not-found pages
+
+Sanity content is fetched in one cached function (`fetchContent` in `sanity/lib.ts`) and every page renders CMS content inside a `<Suspense>` boundary. Published pages are prerendered and refreshed within about a minute (immediately for visitors with the site open). In draft mode Next.js skips the cache, and the Suspense boundaries let draft content stream without blocking the page. Unknown or unpublished article URLs show the not-found page with a `noindex` tag; because the article streams inside Suspense, the HTTP status stays 200, as documented for Next.js Partial Prefetching.
 
 ## Enquiry form
 
@@ -105,6 +118,8 @@ Photographs are loaded from [Unsplash](https://unsplash.com/license) under the U
 
 ## Before launch
 
+1. Review, edit and publish the six AI article drafts in Studio. Check the sources flagged in each article, especially figures read from image-only PDFs (the UCC Q2 2026 market report) and summaries of Uganda's Data Protection and Privacy Act.
+
 1. Company registration status and legal entity name, and the regulatory position for each service line in Uganda. Update `legalNotice` in `content/site.ts`.
 2. Business email, phone, WhatsApp number, office address and business hours (`site.contact`).
 3. Founder: confirm the preferred public name (if any), approve the founder story, and upload a real portrait in Studio.
@@ -112,6 +127,6 @@ Photographs are loaded from [Unsplash](https://unsplash.com/license) under the U
 5. Social media links (`site.social`).
 6. Production domain for `NEXT_PUBLIC_SITE_URL`, plus a Sanity CORS origin for it.
 7. Email delivery credentials and a verified sending domain.
-8. Connectivity package details, pricing and coverage areas, and education formats and fees, once confirmed.
+8. Hotspot locations, voucher prices, durations and data amounts, the voucher sales process, and education formats and fees, once confirmed. Online voucher sales and mobile money payment are not implemented yet.
 9. Legal review of the risk warning and service boundaries, plus a privacy policy and terms of use.
 10. Revoke the temporary migration token in Sanity once it is no longer needed.
