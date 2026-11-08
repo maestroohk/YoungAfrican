@@ -165,8 +165,8 @@ export default function HomePage() {
               Is your area covered?
             </h2>
             <p className="mt-5 max-w-lg text-lg leading-relaxed opacity-85">
-              We are preparing our first service areas. Tell us your village, zone or nearest landmark and we will let you know when
-              service reaches you.
+              We are live in Kazo, with Nabweru, Lugoba and the whole of Wakiso coming next. Tell us your village, zone or nearest
+              landmark and we will let you know when service reaches you.
             </p>
           </div>
           <CoverageForm />

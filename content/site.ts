@@ -5,7 +5,7 @@ export const site = {
   description:
     "Young African Internet is an African-founded connectivity initiative working to make internet access more affordable and dependable for communities in Uganda.",
   location: "Uganda",
-  status: "Preparing first service areas",
+  status: "Live in Kazo, Kampala",
   contact: {
     email: "younginvestorschoice8@gmail.com",
   },
@@ -36,7 +36,7 @@ export const usageGap = {
 export const legalNotice =
   "Young African Internet is committed to expanding access to affordable and dependable connectivity for communities in Uganda. Service availability, package terms and coverage depend on the location and the active service offering, and services are introduced only once the required approvals are in place. Photographs are illustrative; the people shown are not customers or staff.";
 
-export const statusNotice = "Internet packages start at UGX 500 for 3 hours. We are preparing our first service areas in Uganda.";
+export const statusNotice = "Now live in Kazo, Kampala, from UGX 500 for 3 hours. Nabweru, Lugoba and Wakiso are coming soon.";
 
 export const about = {
   intro:
@@ -218,7 +218,7 @@ export const hotspot = {
   faqs: [
     {
       q: "Is the service available yet?",
-      a: "Not yet. We are preparing our first hotspot locations. Ask about availability and we will tell you honestly whether a hotspot is planned near you.",
+      a: "Yes, in Kazo, Kampala. Nabweru, Lugoba and the whole of Wakiso District are coming next. Ask about your area and we will tell you honestly what is planned near you.",
     },
     {
       q: "Do I need a contract or a router at home?",

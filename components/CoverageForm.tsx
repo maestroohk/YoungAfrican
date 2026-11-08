@@ -22,7 +22,7 @@ export function CoverageForm() {
           Check my area
         </button>
       </div>
-      <p className="mt-3 text-sm text-muted">No service areas are live yet. We will reply with what is planned near you.</p>
+      <p className="mt-3 text-sm text-muted">Live now in Kazo. We will reply with what is planned near you.</p>
     </form>
   );
 }

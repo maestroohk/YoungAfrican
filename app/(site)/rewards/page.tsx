@@ -33,7 +33,7 @@ export default function RewardsPage() {
             Gift cards for <span className="opacity-60">consistent clients.</span>
           </>
         }
-        intro="We plan to thank eligible loyal customers with gift cards. The programme starts once the first service areas are live, and its full terms will be published here first."
+        intro="We plan to thank eligible loyal customers with gift cards. Its full terms will be published here before the programme starts."
         aside={
           <figure>
             <GiftCard className="mx-auto rotate-[-3deg] lg:mr-0" />

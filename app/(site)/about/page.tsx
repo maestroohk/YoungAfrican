@@ -25,8 +25,8 @@ const aboutQuery = defineQuery(`*[_type == "aboutPage"][0] {
 }`);
 
 const milestones = [
-  { label: "Now", text: "Establishing the company and confirming registration and licensing requirements in Uganda." },
-  { label: "Next", text: "Opening the first service areas and publishing packages, prices and coverage." },
+  { label: "Now", text: "Live in Kazo, Kampala, with packages from UGX 500, while completing company registration and licensing in Uganda." },
+  { label: "Next", text: "Bringing service to Nabweru and Lugoba, then across the whole of Wakiso District." },
   { label: "Later", text: "Improving coverage, reliability and support as the network grows." },
 ];
 

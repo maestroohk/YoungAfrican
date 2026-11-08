@@ -15,7 +15,7 @@ export default async function SiteLayout({ children }: LayoutProps<"/">) {
       <p role="note" className="bg-mango px-5 py-2 text-center text-sm text-mango-ink">
         {statusNotice}{" "}
         <Link href="/coverage" className="font-semibold underline underline-offset-4">
-          Register your area
+          See coverage
         </Link>
       </p>
       <Header />
