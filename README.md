@@ -1,14 +1,14 @@
 # YoungAfrican website
 
-Website for YoungAfrican, a Ugandan technology company in formation building affordable community Wi-Fi hotspots and offering honest market research and financial education.
+Website for YoungAfrican, an African-founded company in formation, being established in Uganda. It is building pay-as-you-go community Wi-Fi hotspots and an online Markets Academy that teaches risk before reward.
 
 Built with Next.js 16 (App Router, Cache Components), React 19, TypeScript, Tailwind CSS 4, Lucide icons and Sanity CMS.
 
 ## Design system
 
-- Colours (defined in `app/globals.css`): warm ivory and paper backgrounds, deep ink text, cobalt for primary actions and key panels, copper for small markers only.
-- Type: Newsreader (editorial serif with optical sizing) for headings and article text, Schibsted Grotesk for interface and body text.
-- Layout: a 12-column grid with section labels in the first three columns, hairline rules instead of cards, rectangular buttons and documentary photography with captions.
+- Colours (tokens in `app/globals.css`): signal blue for the brand and Wi-Fi, night for the Wi-Fi product world, mango for the Markets Academy, coral for risk and stops, all on warm paper.
+- Type: Schibsted Grotesk for interface and headings, Newsreader for article text and editorial accents.
+- Components: pill buttons and page heroes in `components/ui.tsx`; the Wi-Fi walkthrough, lesson previews and hero mock-ups are shared between the homepage and the section pages.
 
 ## Requirements
 
@@ -38,11 +38,11 @@ Open http://localhost:3000. The content studio is at http://localhost:3000/studi
 ## Project structure
 
 ```
-app/(site)/           Public pages, sharing the header and footer
+app/(site)/           Public pages: home, /connectivity, /academy, /insights, /about, /contact, /privacy
 app/studio/           Embedded Sanity Studio at /studio
 app/api/draft-mode/   Enables and disables draft previews
 app/api/revalidate/   Optional webhook endpoint for instant cache refresh
-components/           Header, footer, shared UI, article rendering, contact form
+components/           Header, footer, shared UI, Wi-Fi walkthrough, lessons, Insights grid, contact form
 content/site.ts       Company copy, founder story defaults, services, photography
 content/insights-seed.ts  The original four articles, used for migration and local fallback
 content/articles/     Researched AI articles in Markdown, imported into Sanity as drafts
@@ -108,13 +108,13 @@ The contact form validates input in the browser and again on the server, include
 
 - **Resend configured**: the enquiry is emailed as plain text to `CONTACT_TO_EMAIL`, with the sender as reply-to.
 - **Development, no provider**: the enquiry is appended to `.enquiries/enquiries.ndjson` (git-ignored) and the visitor is told nobody was notified.
-- **Production, no provider**: nothing is stored and the visitor is asked to use the direct contact details.
+- **Production, no provider**: nothing is stored and the visitor is told the message could not be sent.
 
 The rate limit is held in memory, so it is per server instance.
 
 ## Photography
 
-Photographs are loaded from [Unsplash](https://unsplash.com/license) under the Unsplash licence and are listed in `photos` in `content/site.ts`. The founder portrait is a stock photograph used for illustration and is labelled as such on the page. Replace these with YoungAfrican's own photography when available.
+Photographs are loaded from [Unsplash](https://unsplash.com/license) under the Unsplash licence and are listed in `photos` in `content/site.ts`. No stock photograph is presented as the founder; the About page shows a placeholder until a real portrait is uploaded in Studio. Replace the photographs with YoungAfrican's own when available.
 
 ## Before launch
 
@@ -128,5 +128,17 @@ Photographs are loaded from [Unsplash](https://unsplash.com/license) under the U
 6. Production domain for `NEXT_PUBLIC_SITE_URL`, plus a Sanity CORS origin for it.
 7. Email delivery credentials and a verified sending domain.
 8. Hotspot locations, voucher prices, durations and data amounts, the voucher sales process, and education formats and fees, once confirmed. Online voucher sales and mobile money payment are not implemented yet.
-9. Legal review of the risk warning and service boundaries, plus a privacy policy and terms of use.
+9. Legal review of the risk warning, service boundaries and the privacy notice at /privacy, plus terms of use if needed.
 10. Revoke the temporary migration token in Sanity once it is no longer needed.
+
+## Branches and releases
+
+- `main`: approved releases only. Changes arrive by pull request from `development`.
+- `development`: integration branch where finished work is reviewed and tested.
+- `feature/*` and `fix/*`: one branch per piece of work, merged into `development` by pull request.
+
+Every pull request into `development` or `main` runs `.github/workflows/ci.yml`: install, `next typegen` and type-check, ESLint and a production build. The workflow reads the public Sanity project ID, dataset and site URL from repository variables; no secrets are needed to build.
+
+## Hosting
+
+The site needs a Node.js host. The contact form is a server action, Sanity previews use draft mode, `/api/*` handles preview and cache refresh, `/studio` hosts the editor and old URLs are redirected, and none of these work in a static export. GitHub Pages can therefore only serve a cut-down copy without a working contact form, so it is not used. Vercel, Netlify or another Node host can deploy `development` as a preview and `main` as production, with the environment variables above set in the host.
