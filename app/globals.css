@@ -15,6 +15,8 @@
   --color-coral: #ff5a3c;
   --color-coral-deep: #c43a1f;
   --color-up: #139a6e;
+  --color-brand-navy: #031f3d;
+  --color-brand-gold: #fea813;
 
   --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
   --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
@@ -92,8 +94,7 @@ html:has([data-header="blue"]) .site-header:not([data-solid]),
 html:has([data-header="night"]) .site-header:not([data-solid]) {
   color: #fff;
   border-color: rgb(255 255 255 / 0.15);
-  --mark-bg: #fff;
-  --mark-fg: var(--color-blue);
+  --logo-main: #fff;
   --cta-bg: #fff;
   --cta-fg: var(--color-blue-deep);
 }
@@ -117,4 +118,5 @@ html:has([data-header="mango"]) .site-header:not([data-solid]) {
   border-color: rgb(58 36 0 / 0.1);
   --cta-bg: var(--color-mango-ink);
   --cta-fg: #fff;
+  --logo-accent: #fff;
 }

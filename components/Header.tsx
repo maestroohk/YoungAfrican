@@ -6,24 +6,25 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { nav } from "@/content/site";
 
-const inverseMark = { "--mark-bg": "#fff", "--mark-fg": "var(--color-blue)" } as CSSProperties;
+const inverse = { "--logo-main": "#fff" } as CSSProperties;
 
-export function Mark({ className = "size-7", inverse = false }: { className?: string; inverse?: boolean }) {
+export function Mark({ className = "h-7 w-auto" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 32 32" className={className} style={inverse ? inverseMark : undefined} aria-hidden>
-      <rect width="32" height="32" rx="9" fill="var(--mark-bg, var(--color-blue))" />
-      <circle cx="10" cy="22" r="2.6" fill="var(--mark-fg, #fff)" />
-      <path d="M10 14.5a7.5 7.5 0 0 1 7.5 7.5" fill="none" stroke="var(--mark-fg, #fff)" strokeWidth="2.6" strokeLinecap="round" />
-      <path d="M10 7.5A14.5 14.5 0 0 1 24.5 22" fill="none" stroke="var(--color-mango)" strokeWidth="2.6" strokeLinecap="round" />
+    <svg viewBox="0 0 452.5 272" className={className} aria-hidden>
+      <path fill="var(--logo-main, var(--color-brand-navy))" d="M7.2 52.7A25 25 0 0 1 24.8 10L186.5 10A8 8 0 0 1 191.7 11.9L216.4 33.2A3 3 0 0 1 214.4 38.5L134.1 38.5A3 3 0 0 0 131.6 39.8L99.8 87.6A6 6 0 0 0 99.9 94.4L118.6 120.7A3 3 0 0 0 121 122L165.6 122A3 3 0 0 1 168.3 123.7L218.5 229.8A12 12 0 0 0 239.8 230.5L313.9 96.8A3 3 0 0 0 312.6 92.6L248.5 63Q271.5 26 452.5 0L298.5 199A14 14 0 0 0 296.2 203.4L275.8 267.8A6 6 0 0 1 270.1 272L178 272A6 6 0 0 1 172.2 267.7L152.8 200.1A10 10 0 0 0 150.3 195.8Z" />
+      <path fill="var(--logo-accent, var(--color-brand-gold))" d="M248.5 63Q271.5 26 452.5 0L368.3 56.5A4 4 0 0 0 367 57.8L341.3 103.8A2 2 0 0 1 337.8 103.8L316.5 64Z" />
     </svg>
   );
 }
 
-export function Logo({ inverse = false }: { inverse?: boolean }) {
+export function Logo({ inverse: reverse = false, product = "Internet" }: { inverse?: boolean; product?: string }) {
   return (
-    <span className="inline-flex items-center gap-2.5 text-[1.08rem] font-semibold tracking-[-0.02em]">
-      <Mark inverse={inverse} />
-      Young African Internet
+    <span className="inline-flex items-center gap-2.5 text-(--logo-main,var(--color-brand-navy))" style={reverse ? inverse : undefined}>
+      <Mark className="h-7 w-auto shrink-0" />
+      <span className="flex flex-col leading-none">
+        <span className="text-[1.12rem] font-semibold tracking-[-0.02em]">YoungAfrican</span>
+        <span className="mt-1 text-[0.6rem] font-semibold tracking-[0.2em] uppercase">{product}</span>
+      </span>
     </span>
   );
 }
@@ -92,7 +93,7 @@ export function Header() {
         Skip to content
       </a>
       <div className="container-page flex h-16 items-center justify-between gap-6">
-        <Link href="/" aria-label="Young African Internet home" className="flex min-h-11 items-center">
+        <Link href="/" aria-label="YoungAfrican Internet home" className="flex min-h-11 items-center">
           <Logo />
         </Link>
         <nav aria-label="Main" className="hidden xl:block">
