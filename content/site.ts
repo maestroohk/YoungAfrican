@@ -122,9 +122,9 @@ export const ugx = (amount: number) => `UGX ${amount.toLocaleString("en-US")}`;
 export const packageDetails = ["Price in Uganda shillings", "How long it lasts", "How many devices", "Where it works", "How to pay", "How to renew"];
 
 export const rewardCards = [
-  { amount: 500, reward: "Free bottle", image: "/rewards/bottle.webp", width: 240, height: 354, alt: "Black bottle with the YoungAfrican logo", tone: "blue" },
-  { amount: 800, reward: "Free plate and cup", image: "/rewards/plate-cup.webp", width: 384, height: 276, alt: "White plate and mug with the YoungAfrican logo", tone: "night" },
-  { amount: 1000, reward: "Free T-shirt and cap", image: "/rewards/shirt-cap.webp", width: 344, height: 346, alt: "Black T-shirt and cap with the YoungAfrican logo", tone: "mango" },
+  { amount: 500, reward: "Free bottle", image: "/rewards/bottle-branded.webp", width: 240, height: 354, alt: "Black bottle with the YoungAfrican logo", tone: "blue" },
+  { amount: 800, reward: "Free plate and cup", image: "/rewards/plate-cup-branded.webp", width: 384, height: 276, alt: "White plate and mug with the YoungAfrican logo", tone: "night" },
+  { amount: 1000, reward: "Free T-shirt and cap", image: "/rewards/shirt-cap-branded.webp", width: 344, height: 346, alt: "Black T-shirt and cap with the YoungAfrican logo", tone: "mango" },
 ] as const;
 
 export const connectSteps = [

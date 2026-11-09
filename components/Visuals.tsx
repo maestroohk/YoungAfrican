@@ -1,4 +1,6 @@
+import type { CSSProperties } from "react";
 import Image from "next/image";
+import { Logo } from "@/components/Header";
 import { CalendarDays, Check, Gift, Wifi } from "lucide-react";
 import { allPackages, hotspotAccess, rewardCards, ugx } from "@/content/site";
 
@@ -53,10 +55,13 @@ export function HeroPackages({ className }: { className: string }) {
   );
 }
 
+const onDark = { "--logo-main": "#fff" } as CSSProperties;
+const onMango = { "--logo-accent": "#fff" } as CSSProperties;
+
 const cardTones = {
-  blue: { header: "bg-blue text-white", accent: "text-mango", tag: "bg-mango text-mango-ink", day: "bg-blue/8 text-blue ring-blue/20", panel: "bg-[#e3effd]", bar: "bg-blue" },
-  night: { header: "bg-night text-white", accent: "text-blue-soft", tag: "bg-white text-night", day: "bg-night/6 text-night ring-night/20", panel: "bg-[#efe4fb]", bar: "bg-night" },
-  mango: { header: "bg-mango text-mango-ink", accent: "text-blue-deep", tag: "bg-ink text-white", day: "bg-mango/25 text-mango-ink ring-mango", panel: "bg-[#fef2dd]", bar: "bg-mango" },
+  blue: { header: "bg-blue text-white", accent: "text-mango", tag: "bg-mango text-mango-ink", day: "bg-blue/8 text-blue ring-blue/20", panel: "bg-[#e3effd]", bar: "bg-blue", logo: onDark },
+  night: { header: "bg-night text-white", accent: "text-blue-soft", tag: "bg-white text-night", day: "bg-night/6 text-night ring-night/20", panel: "bg-[#efe4fb]", bar: "bg-night", logo: onDark },
+  mango: { header: "bg-mango text-mango-ink", accent: "text-blue-deep", tag: "bg-ink text-white", day: "bg-mango/25 text-mango-ink ring-mango", panel: "bg-[#fef2dd]", bar: "bg-mango", logo: onMango },
 };
 
 export function RewardCard({ card }: { card: (typeof rewardCards)[number] }) {
@@ -70,13 +75,9 @@ export function RewardCard({ card }: { card: (typeof rewardCards)[number] }) {
           ))}
         </svg>
         <div className="flex items-start justify-between gap-4">
-          <p className="flex items-center gap-2 text-sm leading-tight font-semibold">
-            <Wifi aria-hidden className="size-6" strokeWidth={2.5} />
-            <span>
-              YoungAfrican
-              <span className="block font-normal opacity-80">Internet</span>
-            </span>
-          </p>
+          <span style={tone.logo}>
+            <Logo />
+          </span>
           <p className="text-right text-xs leading-snug font-medium italic opacity-80">
             Connect
             <br />
