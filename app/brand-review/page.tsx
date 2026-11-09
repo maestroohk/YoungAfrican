@@ -250,6 +250,9 @@ export default function BrandReview() {
           <a href="#compare" className="rounded-full bg-ink px-4 py-2 font-semibold text-white">
             Comparison
           </a>
+          <a href="/brand-review/round-two" className="rounded-full bg-blue px-4 py-2 font-semibold text-white">
+            Round two
+          </a>
         </nav>
 
         {directions.map((direction) => (

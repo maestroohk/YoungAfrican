@@ -12,9 +12,9 @@ const palette: Record<Tone, { main: string; accent: string }> = {
   reverse: { main: colors.white, accent: colors.white },
 };
 
-type MarkProps = { tone?: Tone; tile?: boolean; round?: boolean; size?: number | string; className?: string };
+export type MarkProps = { tone?: Tone; tile?: boolean; round?: boolean; size?: number | string; className?: string };
 
-function Frame({ tone = "light", tile, round, size = 64, className, children }: MarkProps & { children: (main: string, accent: string) => ReactNode }) {
+export function Frame({ tone = "light", tile, round, size = 64, className, children }: MarkProps & { children: (main: string, accent: string) => ReactNode }) {
   const tileColor = tone === "navy" ? colors.navy : colors.blue;
   const inner = tile ? palette[tone === "light" ? "blue" : tone] : palette[tone];
   return (
